@@ -1,0 +1,139 @@
+@charset "utf-8";
+.topo_site{
+	background-image:url(../imagens/grecia.jpg);
+	background-position:center top;
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment:fixed;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	color:#00F;
+}
+.segunda_secao{
+	background-image:url(../imagens/segundasecao.png);
+	background-position:center top;
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment:fixed;
+	padding-top: 200px;
+	padding-bottom: 200px;
+}
+.rodape_site{
+	background-color:#666;
+	color:#FFF;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	text-align:center;
+}
+#corpo {
+  width: 100%;
+  height: 2000px;
+  background-image: linear-gradient(to top, #CCCCCC 0%, #FFFFFF 100%);
+  border: 1px solid none;
+}
+#conteudo {
+  width: 100%;
+  height: 800px;
+  background-color:#CCC;
+  border: 1px solid none;
+  float:left;
+}
+#rodape {
+   position:inherit;
+   bottom:0;
+   width:100%;
+   height:60px;   /* Mesma Altura do Rodapé */
+   background:#6cf;
+}
+#pacotes {
+  background-image: linear-gradient(to top, #CCCCCC 0%, #FFFFFF 100%);
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color:#000;
+  margin: 30px;
+  padding: 0;
+}
+.swiper-container {
+  width: 100%;
+  padding-top: 100px;
+  padding-bottom: 200px;
+}
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 500px;
+  height: 450px;
+ background:#666;
+}
+.swiper-slide .imgBx{  
+  width: 100%;
+  height: 300px;
+  overflow:hidden;
+}
+.swiper-slide .imgBx img{  
+  width: 100%;
+}
+.swiper-slide .details{  
+  box-sizing:border-box;
+  padding:20px;
+}
+.swiper-slide .details h6{  
+  margin: 0px;
+  padding: 0px;
+  font-size: 20px;
+}
+#rodape{
+  width: 100%;
+  height: 100px;
+   background-image: linear-gradient(to top, #FF6600 0%, #FFCC66 100%);
+  border: 1px solid none;
+}
+.container{
+	padding-top: 50px;
+}
+hr{
+	width: 300px;
+	border: 3px solid #434444;
+}
+/*Formatacao Produto*/
+.detalhe{
+    width: 50px;
+    height: 434px
+}
+.quadro{
+	background-color:#FFF;
+	margin: 10px;
+}
+.direita{
+	width: 300px;
+    height: 700px;
+	float:left;
+	background-color:transparent;
+	padding-top: 50px;
+	margin: 10px;
+}
+.linha{
+	margin-top: 10px;
+	margin-bottom: 10px;
+  	width: 100%;
+  	border-bottom: 1px solid #000000;
+}
+.dt{
+	padding: 10px;
+	text-align:justify;
+	width: 600px;
+}
+.esquerda{
+	width: 800x;
+    height: 900px;
+	float:left;
+	background-color:transparent;
+}
+.tabela{
+	
+	overflow: auto;
+	width: 640px;
+	height: 200px;
+	border:solid 1px;
+}
+/*Formatacao Produto - fim*/
