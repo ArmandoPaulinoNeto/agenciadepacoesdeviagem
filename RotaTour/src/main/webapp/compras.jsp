@@ -412,7 +412,7 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
 			}
 			if (document.cadatroCartao.txtContato.value.length < 15){
 				
-				document.getElementById('mensagem').innerHTML = "Preencha o campo Contado corretamente!";
+				document.getElementById('mensagem').innerHTML = "Preencha o campo Contato corretamente!";
 				$("#myModal").modal({
 			   		 show: true
 			    });
