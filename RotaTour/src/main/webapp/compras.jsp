@@ -345,8 +345,7 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
 		    var  Soma = 0;
 		    var Resto;
 		   
-			if (strCPF == ""){
-				alert("O campo cpf vazio!");
+			if (strCPF == ""){				
 				$("#txtCPFtitular").addClass("is-invalid");
 				return false;
 			}			  
