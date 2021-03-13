@@ -7,6 +7,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+
+import br.com.isoftware.rotatour.domain.Acesso;
 import br.com.isoftware.rotatour.util.HibernateUtil;
 
 public class GerericRepository<Entidade> {
@@ -16,14 +18,13 @@ public class GerericRepository<Entidade> {
 	@SuppressWarnings("unchecked")
 	public GerericRepository() {
 
-		this.classe = (Class<Entidade>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		this.classe = (Class<Entidade>) ((ParameterizedType) getClass().getGenericSuperclass())
+				.getActualTypeArguments()[0];
 	}
 
 	public Entidade salvar(Entidade entidade) {
-		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
-		
 		try {
 			transacao = sessao.beginTransaction();
 			sessao.save(entidade);
@@ -41,9 +42,7 @@ public class GerericRepository<Entidade> {
 	}
 	@SuppressWarnings("unchecked")
 	public List<Entidade> listar(){
-		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		
 		try {
 			Criteria consulta = sessao.createCriteria(this.classe);
 			 List<Entidade> resultado = consulta.list();
@@ -59,9 +58,7 @@ public class GerericRepository<Entidade> {
 	}
 	@SuppressWarnings("unchecked")
 	public Entidade retornaEntidade(){
-		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		
 		try {
 			 Criteria consulta = sessao.createCriteria(this.classe);
 			 Entidade entidade = null;
@@ -80,9 +77,7 @@ public class GerericRepository<Entidade> {
 	}
 	@SuppressWarnings("unchecked")
 	public  Entidade buscar(long codigo){
-		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		
 		try {
 			 Criteria consulta = sessao.createCriteria(this.classe);
 			 consulta.add(Restrictions.idEq(codigo));
@@ -99,9 +94,7 @@ public class GerericRepository<Entidade> {
 	}
 	@SuppressWarnings("unchecked")
 	public List<Entidade> buscarPorNome(String busca){
-		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		
 		try {
 			 Criteria consulta = sessao.createCriteria(this.classe);
 			 consulta.add(Restrictions.like("nome", "%"+busca+"%"));
@@ -118,9 +111,7 @@ public class GerericRepository<Entidade> {
 	}
 	@SuppressWarnings("unchecked")
 	public List<Entidade> buscarCidade(String busca){
-		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		
 		try {
 			 Criteria consulta = sessao.createCriteria(this.classe);
 			 consulta.add(Restrictions.like("imagem", "%"+busca+"%"));
@@ -137,9 +128,7 @@ public class GerericRepository<Entidade> {
 	}	
 	@SuppressWarnings("unchecked")
 	public List<Entidade> buscarImagens(Long busca){
-		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		
 		try {
 			 Criteria consulta = sessao.createCriteria(this.classe);
 			 consulta.add(Restrictions.like("imagemPacotesFK", busca));
@@ -155,10 +144,8 @@ public class GerericRepository<Entidade> {
 		}
 	}
 	public void excluir(Entidade entidade) {
-		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
-		
 		try {
 			transacao = sessao.beginTransaction();
 			sessao.delete(entidade);
@@ -175,10 +162,8 @@ public class GerericRepository<Entidade> {
 	}
 	
 	public void editar(Entidade entidade) {
-		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
-		
 		try {
 			transacao = sessao.beginTransaction();
 			sessao.update(entidade);
