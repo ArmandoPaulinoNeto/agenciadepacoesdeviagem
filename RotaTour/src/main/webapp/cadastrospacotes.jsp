@@ -219,7 +219,7 @@ if(pagina.equals("compras")){
 			}
 			if (document.cadastroCliente.txtContato.value.length < 15){
 				
-				document.getElementById('mensagem').innerHTML = "Preencha o campo Contado corretamente!";
+				document.getElementById('mensagem').innerHTML = "Preencha o campo Contato corretamente!";
 				$("#myModal").modal({show: true});
 				document.cadastroCliente.txtContato.focus();
 				return false;
@@ -233,7 +233,7 @@ if(pagina.equals("compras")){
 			}
 			if (document.cadastroCliente.txtContato.value.length < 15){
 				
-				document.getElementById('mensagem').innerHTML = "Preencha o campo Contado corretamente!";
+				document.getElementById('mensagem').innerHTML = "Preencha o campo Contato corretamente!";
 				$("#myModal").modal({show: true});
 				document.cadastroCliente.txtContato.focus();
 				return false;
