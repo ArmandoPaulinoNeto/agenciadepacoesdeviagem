@@ -100,15 +100,6 @@ public class cliente extends HttpServlet {
 					String login = request.getParameter("txtLogin");
 					String senha = request.getParameter("txtSenha");
 					Date dataNascimento = dataTransform.converterStrigParaData(request.getParameter("txtDataNascimento"));
-					System.out.println(numCartao);
-					System.out.println(nomeTitular);
-					System.out.println(validade);
-					System.out.println(codSeguranca);
-					System.out.println(parcelas);
-					System.out.println(cpfTitular);
-					System.out.println(login);
-					System.out.println(senha);
-					System.out.println(dataNascimento);
 					
 					String[] numeroCompleto = (request.getParameter("txtContato").replace("(", "").replace(")", "").replace("-", "")).split(" ");					
 					String ddd = numeroCompleto[0];
