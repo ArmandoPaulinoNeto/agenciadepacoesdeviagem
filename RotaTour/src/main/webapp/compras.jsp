@@ -225,11 +225,11 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
                                                             <div class="form-row"><!--form-row-->
                                                                     <div class="form-group col-sm-4">
                                                                             <label>CPF do titular:</label>
-                                                                            <input class="cpf form-control" name="txtCPFtitular" id="txtCPFtitular" placeholder="000.000.000-00">
+                                                                            <input class="cpf form-control" onBlur="javascript: validarCPF(this.value);" name="txtCPFtitular" id="txtCPFtitular" placeholder="000.000.000-00">
                                                                     </div>
                                                                     <div class="form-group col-sm-4">
                                                                             <label>Data de Nascimento</label>
-                                                                            <input class="dataNasc form-control" name="txtDataNascimento" id="txtDataNascimento"placeholder="00/00/0000">
+                                                                            <input class="dataNasc form-control" name="txtDataNascimento" id="txtDataNascimento" placeholder="00/00/0000">
                                                                     </div>
                                                                     <div class="form-group col-sm-4">
                                                                             <label>Contato:</label>
@@ -280,6 +280,50 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
 		$('.codSeguranca').mask('000');
         $('.dataNasc').mask('00/00/0000');
 	</script>
+	<script type="text/javascript">
+		function validarCPF(strCPF) {
+			
+			strCPF = strCPF.replace(/[^0-9]/g, '')
+		    var  Soma = 0;
+		    var Resto;
+		   
+			if (strCPF == ""){				
+				$("#txtCPFtitular").addClass("is-invalid");
+				return false;
+			}			  
+		  	for (i=1; i<=9; i++){
+		  		Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+		  	}
+		  	
+		 	Resto = (Soma * 10) % 11;
+		
+		    if ((Resto == 10) || (Resto == 11)){
+		    	Resto = 0;
+		    }				
+		    if (Resto != parseInt(strCPF.substring(9, 10))){
+		    	$("#txtCPFtitular").addClass("is-invalid");
+		    	return false;
+		    }
+		    
+		  	Soma = 0;
+		  	
+		    for (i = 1; i <= 10; i++){
+		    	Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+		    }
+				
+		    Resto = (Soma * 10) % 11;		
+		    if ((Resto == 10) || (Resto == 11)){
+		    	Resto = 0;
+		    }				
+		    if (Resto != parseInt(strCPF.substring(10, 11) )){
+		    	$("#txtCPFtitular").addClass("is-invalid");
+		    	return false;
+		    }
+		    $("#txtCPFtitular").removeClass("is-invalid");
+		    $("#txtCPFtitular").addClass("is-valid");
+		    return true;
+		}	
+	</script>	
 <!-- Alerta com Modal -->	
 	<div id="myModal" class="modal" tabindex="-1" role="dialog">
  		 <div class="modal-dialog" role="document">
