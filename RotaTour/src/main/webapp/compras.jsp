@@ -495,13 +495,13 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
 		}		  
 	</script>	
 	<script>
-	$('#myModal').on('shown.bs.modal', function() {
-
-	    var $me = $(this);
-
-	    $me.delay(3000).hide(0, function() {
-	        $me.modal('hide');
-	    });
-	});
+		$('#myModal').on('shown.bs.modal', function() {
+	
+		    var $me = $(this);
+	
+		    $me.delay(3000).hide(0, function() {
+		        $me.modal('hide');
+		    });
+		});
 	</script>
  </html>
