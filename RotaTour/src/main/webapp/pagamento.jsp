@@ -156,8 +156,8 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
 				<input type="text" id="inputNumero" maxlength="19" autocomplete="off">
 			</div>
 			<div class="grupo">
-				<label for="inputNombre">Nome do titular</label>
-				<input type="text" id="inputNombre" maxlength="19" autocomplete="off">
+				<label for="inputNome">Nome do titular</label>
+				<input type="text" id="inputNome" maxlength="19" autocomplete="off">
 			</div>
 			<div class="flexbox">
 				<div class="grupo expira">

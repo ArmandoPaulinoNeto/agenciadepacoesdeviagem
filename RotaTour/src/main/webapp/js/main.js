@@ -1,33 +1,29 @@
 const cartao = document.querySelector('#cartao'),
 	  btnAbrirFormulario = document.querySelector('#btn-abrir-formulario'),
 	  formulario = document.querySelector('#formulario-cartao'),
-	  numerocartao = document.querySelector('#cartao .numero'),
-	  nombrecartao = document.querySelector('#cartao .nombre'),
+	  numeroCartao = document.querySelector('#cartao .numero'),
+	  nomeCartao = document.querySelector('#cartao .nombre'),
 	  logoMarca = document.querySelector('#logo-marca'),
 	  firma = document.querySelector('#cartao .firma p'),
 	  mesExpiracion = document.querySelector('#cartao .mes'),
 	  yearExpiracion = document.querySelector('#cartao .year');
 	  ccv = document.querySelector('#cartao .ccv');
 
-// * Volteamos la cartao para mostrar el frente.
 const mostrarFrente = () => {
 	if(cartao.classList.contains('active')){
 		cartao.classList.remove('active');
 	}
 }
 
-// * Rotacion de la cartao
 cartao.addEventListener('click', () => {
 	cartao.classList.toggle('active');
 });
 
-// * Boton de abrir formulario
 btnAbrirFormulario.addEventListener('click', () => {
 	btnAbrirFormulario.classList.toggle('active');
 	formulario.classList.toggle('active');
 });
 
-// * Select del mes generado dinamicamente.
 for(let i = 1; i <= 12; i++){
 	let opcion = document.createElement('option');
 	opcion.value = i;
@@ -35,7 +31,6 @@ for(let i = 1; i <= 12; i++){
 	formulario.selectMes.appendChild(opcion);
 }
 
-// * Select del año generado dinamicamente.
 const yearActual = new Date().getFullYear();
 for(let i = yearActual; i <= yearActual + 8; i++){
 	let opcion = document.createElement('option');
@@ -44,75 +39,70 @@ for(let i = yearActual; i <= yearActual + 8; i++){
 	formulario.selectYear.appendChild(opcion);
 }
 
-// * Input numero de cartao
 formulario.inputNumero.addEventListener('keyup', (e) => {
 	let valorInput = e.target.value;
 
 	formulario.inputNumero.value = valorInput.replace(/\s/g, '').replace(/\D/g, '').replace(/([0-9]{4})/g, '$1 ').trim();
 
-	numerocartao.textContent = valorInput;
+	numeroCartao.textContent = valorInput;
 
 	if(valorInput == ''){
 		
-		numerocartao.textContent = '0000 0000 0000 0000';
+		numeroCartao.textContent = '0000 0000 0000 0000';
 		logoMarca.innerHTML = '';
 	}
 	
 	if(valorInput.length > 18){
 		
-		var bandeira = (tgdeveloper.getCardFlag(valorInput)+'.png');
-		logoMarca.innerHTML = '';
-		const imagen = document.createElement('img');
-		imagen.src = 'imagens/img-cartao/logos/'+bandeira;
-		logoMarca.appendChild(imagen);
+		var bandeira = (ReturnFlag.getCardFlag(valorInput));
+		
+		if(bandeira != ''){
+			logoMarca.innerHTML = '';
+			const imagen = document.createElement('img');
+			imagen.src = 'imagens/img-cartao/logos/'+bandeira;
+			logoMarca.appendChild(imagen);
+		}
+			
 	}	
-	// Volteamos la cartao para que el usuario vea el frente.
+	
 	mostrarFrente();
 });
 
-// * Input nombre de cartao
-formulario.inputNombre.addEventListener('keyup', (e) => {
+formulario.inputNome.addEventListener('keyup', (e) => {
 	let valorInput = e.target.value;
 
-	formulario.inputNombre.value = valorInput.replace(/[0-9]/g, '');
-	nombrecartao.textContent = valorInput;
+	formulario.inputNome.value = valorInput.replace(/[0-9]/g, '');
+	nomeCartao.textContent = valorInput;
 	firma.textContent = valorInput;
 
 	if(valorInput == ''){
-		nombrecartao.textContent = 'Luís Phelipe Orlens';
+		nomeCartao.textContent = 'NOME IMPRESSO NO CARTÃO';
 	}
 	
 	mostrarFrente();
 });
 
-// * Select mes
 formulario.selectMes.addEventListener('change', (e) => {
 	mesExpiracion.textContent = e.target.value;
 	mostrarFrente();
 });
 
-// * Select Año
 formulario.selectYear.addEventListener('change', (e) => {
 	yearExpiracion.textContent = e.target.value.slice(2);
 	mostrarFrente();
 });
 
-// * CCV
 formulario.inputCCV.addEventListener('keyup', () => {
 	if(!cartao.classList.contains('active')){
 		cartao.classList.toggle('active');
 	}
 
-	formulario.inputCCV.value = formulario.inputCCV.value
-	// Eliminar los espacios
-	.replace(/\s/g, '')
-	// Eliminar las letras
-	.replace(/\D/g, '');
+	formulario.inputCCV.value = formulario.inputCCV.value.replace(/\s/g, '').replace(/\D/g, '');
 
 	ccv.textContent = formulario.inputCCV.value;
 });
 
-var tgdeveloper = {
+var ReturnFlag = {
 
 	    /**
 	    * getCardFlag
@@ -137,11 +127,11 @@ var tgdeveloper = {
 
 	        for (var flag in cards) {
 	            if(cards[flag].test(cardnumber)) {
-	                return flag;
+	                return flag+'.png';
 	            }
 	        }       
 
-	        return false;
+	        return '';
 	    }
 
 	}
