@@ -57,42 +57,15 @@ formulario.inputNumero.addEventListener('keyup', (e) => {
 		numerocartao.textContent = '0000 0000 0000 0000';
 		logoMarca.innerHTML = '';
 	}
-	/*
-	 visa 4
-	master 51 a 55
-	Dinners Club 301 305 36 38
-	Elo 636368 438935 504175 451416 509048 509067 509049 509069 509050 509074 509068 509040 509045 509051 509046 509066 509047 509042 509052 509043 509064 509040 36297 5067 4576 4011 
-	Discover 6011,622,64,65
-	Aura 50
-	Jcb 35
-	Hipercard 38,60 
-	American Express 34 37
 	
-	if(valorInput[0] == 4){
-		logoMarca.innerHTML = '';
-		const imagen = document.createElement('img');
-		imagen.src = 'imagens/img-cartao/logos/visa.png';
-		logoMarca.appendChild(imagen);
-	} else if(valorInput[0] == 5){
-		logoMarca.innerHTML = '';
-		const imagen = document.createElement('img');
-		imagen.src = 'imagens/img-cartao/logos/mastercard.png';
-		logoMarca.appendChild(imagen);
-	}
-	 * */
-//.length == 0
-	var bandeiras = ['visa.png', 'american.png', 'jcb.png', 'hipercard.png', 'aura.png', 'mastercard.png', 'dinners.png', 'discover.png', 'elo.png']
-	var numeros = ['4','34 37','35', '60', '50','51 52 53 54 55', '301 305 36 38', '6011 622 64 65', '636368 438935 504175 451416 509048 509067 509049 509069 509050 509074 509068 509040 509045 509051 509046 509066 509047 509042 509052 509043 509064 509040 36297 5067 4576 4011'];
-	for (var i = 0; i < numeros.length; i++) {
+	if(valorInput.length > 18){
 		
-		if(numeros[i].indexOf(valorInput) != -1){
-			logoMarca.innerHTML = '';
-			const imagen = document.createElement('img');
-			imagen.src = 'imagens/img-cartao/logos/'+bandeiras[i];
-			logoMarca.appendChild(imagen);
-			break;
-		} 
-	}
+		var bandeira = (tgdeveloper.getCardFlag(valorInput)+'.png');
+		logoMarca.innerHTML = '';
+		const imagen = document.createElement('img');
+		imagen.src = 'imagens/img-cartao/logos/'+bandeira;
+		logoMarca.appendChild(imagen);
+	}	
 	// Volteamos la cartao para que el usuario vea el frente.
 	mostrarFrente();
 });
@@ -108,7 +81,7 @@ formulario.inputNombre.addEventListener('keyup', (e) => {
 	if(valorInput == ''){
 		nombrecartao.textContent = 'Luís Phelipe Orlens';
 	}
-
+	
 	mostrarFrente();
 });
 
@@ -138,3 +111,38 @@ formulario.inputCCV.addEventListener('keyup', () => {
 
 	ccv.textContent = formulario.inputCCV.value;
 });
+
+var tgdeveloper = {
+
+	    /**
+	    * getCardFlag
+	    * Return card flag by number
+	    *
+	    * @param cardnumber
+	    */   
+	    getCardFlag: function(cardnumber) {
+	        var cardnumber = cardnumber.replace(/[^0-9]+/g, '');
+
+	        var cards = {
+	            visa      : /^4[0-9]{12}(?:[0-9]{3})/,
+	            mastercard : /^5[1-5][0-9]{14}/,
+	            diners    : /^3(?:0[0-5]|[68][0-9])[0-9]{11}/,
+	            amex      : /^3[47][0-9]{13}/,
+	            discover  : /^6(?:011|5[0-9]{2})[0-9]{12}/,
+	            hipercard  : /^(606282\d{10}(\d{3})?)|(3841\d{15})/,
+	            elo        : /^((((636368)|(438935)|(504175)|(451416)|(636297))\d{0,10})|((5067)|(4576)|(4011))\d{0,12})/,
+	            jcb        : /^(?:2131|1800|35\d{3})\d{11}/,       
+	            aura      : /^(5078\d{2})(\d{2})(\d{11})$/     
+	        };
+
+	        for (var flag in cards) {
+	            if(cards[flag].test(cardnumber)) {
+	                return flag;
+	            }
+	        }       
+
+	        return false;
+	    }
+
+	}
+
