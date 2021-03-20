@@ -12,7 +12,6 @@
 <!DOCTYPE html>
 <%
 String pagina = (String) request.getSession().getAttribute("pagina");
-System.out.println("|"+pagina+"|");
 session.setAttribute("pagina", "pacotes");
 Long codigo = Long.parseLong(request.getParameter("id"));
 session.setAttribute("codigo", codigo);
@@ -113,7 +112,7 @@ DateTrasform dataString = new DateTrasform();
 												    <h5 class="card-title">Garanta seu pacote já!</h5>
 												    <div class="row ml-3"><b>De:</b><p class="card-text">&nbsp;01/abr/2021</p></div>
 												    <div class="row justify-content-end mr-5"><b>Ate:</b><p class="card-text">&nbsp;01/nov/2021</p></div>
-                                                    <form action="pagamento.jsp" method="post">
+                                                    <form action="compras.jsp" method="post">
                                                     	<div class="row my-3">
 		                                                    	<div class="ml-3 my-1"><p class="vlr"><b>Pessoas: </b></p></div>
 		                                                    	<div class="ml-2 my-1">

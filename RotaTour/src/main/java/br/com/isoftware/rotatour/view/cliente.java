@@ -61,7 +61,7 @@ public class cliente extends HttpServlet {
 			DateTrasform dataTransform = new DateTrasform();
 			ConverteValores converteValores;
 			String pagina = (String) request.getSession().getAttribute("pagina");
-			
+			System.out.println(pagina);
 			if(pagina.equals("acessar")) {
 			    
 					String login = request.getParameter("txtLogin");
@@ -86,38 +86,10 @@ public class cliente extends HttpServlet {
 					 }else {
 						 response.sendRedirect("index.jsp");
 					 }	
-			}else if(pagina.equals("compras")) {
+			}if(pagina.equals("compras")) {
 				
-					converteValores = new ConverteValores();
-					String subtotal = (String) request.getSession().getAttribute("subtotal");			
-				
-					String numCartao = request.getParameter("txtNumCartao").replace(" ", "");
-					String nomeTitular = request.getParameter("txtNomeTitular");
-					String validade = request.getParameter("txtValidade").replace("/", "");
-					String codSeguranca = request.getParameter("txtCodSeguranca");
-					String parcelas = request.getParameter("sltParcelas");
-					String cpfTitular = request.getParameter("txtCPFtitular").replace(".", "").replace("-", "");
-					String login = request.getParameter("txtLogin");
-					String senha = request.getParameter("txtSenha");
-					Date dataNascimento = dataTransform.converterStrigParaData(request.getParameter("txtDataNascimento"));
-					
-					String[] numeroCompleto = (request.getParameter("txtContato").replace("(", "").replace(")", "").replace("-", "")).split(" ");					
-					String ddd = numeroCompleto[0];
-					String contato = numeroCompleto[1];	
-					//ACESSO
-					Acesso acesso = control.cadastrarAcesso(login, senha, new Short("0"));
-					
-					request.getSession().setAttribute("acesso", acesso);
-					//PAGAMENTO 
-					Pagamento pagamento = control.cadastrarPagamento(converteValores.valorParaBigDecimal(subtotal), new Date());					
-					request.getSession().setAttribute("pagamento", pagamento);
-					
-					if(!parcelas.equals("1")){
-						BigDecimal parcela = converteValores.valorParcelaBigDecimal(subtotal, parcelas);
-						control.cadastrarParcelamento(pagamento, parcela, new Short(parcelas));
-					}
-					//CARTÃO
-					control.cadastrarCartao(pagamento, numCartao, nomeTitular, validade, codSeguranca, cpfTitular, dataNascimento, ddd, contato);					
+					request.getSession().setAttribute("Login", request.getParameter("txtLogin"));
+					request.getSession().setAttribute("Senha", request.getParameter("txtSenha"));
 					
 					boolean selecionado = (boolean) request.getSession().getAttribute("selecionado");
 					
@@ -127,63 +99,114 @@ public class cliente extends HttpServlet {
 						request.getSession().setAttribute("DataIda2", request.getParameter("txtDataIda2"));
 					}
 					request.getSession().setAttribute("mansagem", "Cadastros realizados com sucesso!");
-					request.getSession().setAttribute("acesso", acesso);
 					response.sendRedirect("cadastros.jsp");
-			}else if(pagina.equals("cadastros")){
-			
-						converteValores = new ConverteValores();
+			}if(pagina.equals("cadastros")){
+					
 						int quantidade = (int) request.getSession().getAttribute("quantidade");
-						Pacotes pacote = (Pacotes) request.getSession().getAttribute("pacote");
-						Pagamento pagamento = (Pagamento) request.getSession().getAttribute("pagamento");						
-						String subtotal = (String) request.getSession().getAttribute("subtotal");
-						
-						Acesso acesso = (Acesso) request.getSession().getAttribute("acesso");
-						
-						String saida = (String) request.getSession().getAttribute("saida");
-				
-						String nome = request.getParameter("txtNome");
-						String cpf = request.getParameter("txtCPF").replace(".", "").replace("-", "");
-						String sexo = request.getParameter("sltSexo");
-						Date dataNacimento = dataTransform.converterStrigParaData(request.getParameter("txtDataNascimento"));
-						String logradouro = request.getParameter("txtLogradouro");
-						String bairro = request.getParameter("txtBairro");
-						String numero = request.getParameter("txtNumero");
-						String cidade = request.getParameter("txtCidade");
-						String uf = request.getParameter("txtUF");
-						String cep = request.getParameter("txtCEP").replace("-", "");
-						String email = request.getParameter("txtEmail");
-						String[] numeroCompleto = (request.getParameter("txtContato").replace("(", "").replace(")", "").replace("-", "")).split(" ");
-						String ddd = numeroCompleto[0];
-						String contato = numeroCompleto[1];
-						//CLIENTE
-						Clientes cliente = control.cadastrarCliente(cpf, nome, sexo, dataNacimento, ddd, contato, logradouro, numero, bairro, cidade, cep, uf, email);
-						//VIAGEM
-						Viagem viagem = control.cadastrarViagem(pacote, cliente, saida, new Date());
-						//COMPRA
-						control.cadastrarCompra(pagamento, viagem, acesso, new Short(String.valueOf(quantidade)), cupomFiscal(), converteValores.valorParaBigDecimal(subtotal), new Date());						
-						
-						boolean selecionado = (boolean) request.getSession().getAttribute("selecionado");
-						
-						if(selecionado) {
-							
-							control.cadastrarOpcoes(viagem, dataTransform.converterStrigParaData((String)request.getSession().getAttribute("DataIda")));
-							control.cadastrarOpcoes(viagem, dataTransform.converterStrigParaData((String)request.getSession().getAttribute("DataIda1")));
-							control.cadastrarOpcoes(viagem, dataTransform.converterStrigParaData((String)request.getSession().getAttribute("DataIda2")));
-						}
-						request.getSession().setAttribute("cliente", cliente);
-						request.getSession().setAttribute("mensagem", "Cadastros realizados com sucesso!");
+						request.getSession().setAttribute("Nome", request.getParameter("txtNome"));
+						request.getSession().setAttribute("CPF", request.getParameter("txtCPF"));
+						request.getSession().setAttribute("Sexo", request.getParameter("sltSexo"));
+						request.getSession().setAttribute("DataNascimento", request.getParameter("txtDataNascimento"));
+						request.getSession().setAttribute("Logradouro", request.getParameter("txtLogradouro"));
+						request.getSession().setAttribute("Bairro", request.getParameter("txtBairro"));
+						request.getSession().setAttribute("Numero", request.getParameter("txtNumero"));
+						request.getSession().setAttribute("Cidade", request.getParameter("txtCidade"));
+						request.getSession().setAttribute("UF", request.getParameter("txtUF"));
+						request.getSession().setAttribute("CEP", request.getParameter("txtCEP"));
+						request.getSession().setAttribute("Email", request.getParameter("txtEmail"));
+						request.getSession().setAttribute("Contato", request.getParameter("txtContato"));
+						request.getSession().setAttribute("quantidade", quantidade);
+						request.getSession().setAttribute("mansagem", "Cadastros realizados com sucesso!");
+						request.getSession().setAttribute("pagina", "cadastros");
 						response.sendRedirect("cadastros.jsp");
 			}if(pagina.equals("acompanhantes")){
 					int quantidade = (int) request.getSession().getAttribute("quantidade");
-					Clientes cliente = (Clientes) request.getSession().getAttribute("cliente"); 
-					
 					for (int i = 1; i < (quantidade-1); i++) {
-							
-							control.cadastrarAcompanhantes(cliente, request.getParameter("txtNome"+String.valueOf(i)), dataTransform.converterStrigParaData(request.getParameter("txtDataNascimento"+String.valueOf(i))));
+						
+							request.getSession().setAttribute("acNome"+String.valueOf(i), request.getParameter("txtNome"+String.valueOf(i)));
+							request.getSession().setAttribute("acDataNascimento"+String.valueOf(i), request.getParameter("txtDataNascimento"+String.valueOf(i)));							
 					 }						
 						
 					 request.getSession().setAttribute("mensagem", "Cadastros realizados com sucesso!");
 					 response.sendRedirect("cadastros.jsp");
+			}if(pagina.equals("finalizarcompra")){
+				
+				converteValores = new ConverteValores();
+				
+				int quantidade = (int) request.getSession().getAttribute("quantidade");
+				String saida = (String) request.getSession().getAttribute("saida");
+				Pacotes pacote = (Pacotes) request.getSession().getAttribute("pacote");
+				String subtotal = (String) request.getSession().getAttribute("subtotal");
+				
+				String login = (String) request.getSession().getAttribute("Login");
+				String senha = (String) request.getSession().getAttribute("Senha");
+				
+				Acesso acesso = control.cadastrarAcesso(login, senha, new Short("0"));
+
+				String nome = (String) request.getSession().getAttribute("Nome");
+				String cpf = ((String) request.getSession().getAttribute("CPF")).replace(".", "").replace("-", "");
+				String sexo = (String) request.getSession().getAttribute("Sexo");
+				Date dataNacimento = dataTransform.converterStrigParaData((String) request.getSession().getAttribute("DataNascimento"));
+				String logradouro = (String) request.getSession().getAttribute("Logradouro");
+				String bairro = (String) request.getSession().getAttribute("Bairro");
+				String numero = (String) request.getSession().getAttribute("Numero");
+				String cidade = (String) request.getSession().getAttribute("Cidade");
+				String uf = (String) request.getSession().getAttribute("UF");
+				String cep = ((String) request.getSession().getAttribute("CEP")).replace("-", "");
+				String email = (String) request.getSession().getAttribute("Email");
+				String[] numeroCompleto = ((String) request.getSession().getAttribute("Contato")).replace("(", "").replace(")", "").replace("-", "").split(" ");
+				String ddd = numeroCompleto[0];
+				String contato = numeroCompleto[1];
+				//CLIENTE
+				Clientes cliente = control.cadastrarCliente(cpf, nome, sexo, dataNacimento, ddd, contato, logradouro, numero, bairro, cidade, cep, uf, email);
+				//ACOMPANHANTE
+				if(quantidade > 1) {
+					for (int i = 1; i < (quantidade-1); i++) {
+						
+						String acNome = (String) request.getSession().getAttribute("acNome"+String.valueOf(i));
+						String acDataNascimento = (String) request.getSession().getAttribute("acDataNascimento"+String.valueOf(i));
+						control.cadastrarAcompanhantes(cliente, acNome, dataTransform.converterStrigParaData(acDataNascimento));
+					}
+				}
+				
+				//VIAGEM
+				Viagem viagem = control.cadastrarViagem(pacote, cliente, saida, new Date());
+				
+				boolean selecionado = (boolean) request.getSession().getAttribute("selecionado");
+				
+				if(selecionado) {
+					
+					control.cadastrarOpcoes(viagem, dataTransform.converterStrigParaData((String)request.getSession().getAttribute("DataIda")));
+					control.cadastrarOpcoes(viagem, dataTransform.converterStrigParaData((String)request.getSession().getAttribute("DataIda1")));
+					control.cadastrarOpcoes(viagem, dataTransform.converterStrigParaData((String)request.getSession().getAttribute("DataIda2")));
+				}
+							
+				String numCartao = request.getParameter("inputNumero").replace(" ", "");
+				String nomeTitular = request.getParameter("inputNome");
+				String validade = request.getParameter("mes")+request.getParameter("year").substring(2);
+				String codSeguranca = request.getParameter("inputCCV");
+				String parcelas = request.getParameter("sltParcelas");				
+				String cpfTitular = request.getParameter("txtCPFtitular").replace(".", "").replace("-", "");
+				Date titularDataNacimento = dataTransform.converterStrigParaData(request.getParameter("txtDataNascimento"));
+				String[] numCompleto = ((String) request.getSession().getAttribute("Contato")).replace("(", "").replace(")", "").replace("-", "").split(" ");
+				String titularDDD = numCompleto[0];
+				String titularContato = numCompleto[1];
+				//PAGAMENTO 
+				Pagamento pagamento = control.cadastrarPagamento(converteValores.valorParaBigDecimal(subtotal), new Date());
+				if(!parcelas.equals("1")){
+					BigDecimal parcela = converteValores.valorParcelaBigDecimal(subtotal, parcelas);
+					control.cadastrarParcelamento(pagamento, parcela, new Short(parcelas));
+				}
+				//COMPRA
+				control.cadastrarCompra(pagamento, viagem, acesso, new Short(String.valueOf(quantidade)), cupomFiscal(), converteValores.valorParaBigDecimal(subtotal), new Date());						
+				
+				//CARTÃO
+				if(validade.length() < 4){
+					validade = "0"+validade;
+				}
+				control.cadastrarCartao(pagamento, numCartao, nomeTitular, validade, codSeguranca, cpfTitular, titularDataNacimento, titularDDD, titularContato);
+				
+				response.sendRedirect("index.jsp");
 			}
 			if(pagina.equals("cadastropacotes")){
 				

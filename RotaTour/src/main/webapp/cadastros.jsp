@@ -7,7 +7,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-String mensagem = (String) session.getAttribute("mensagem");
+String mensagem = (String) session.getAttribute("mansagem");
 String pagina = (String) session.getAttribute("pagina");
 String saida = (String) session.getAttribute("saida");
 int quantidade = (int) session.getAttribute("quantidade");
@@ -18,13 +18,11 @@ if(pagina.equals("compras")){
 	session.setAttribute("pagina", "cadastros");
 }else{
 	   if(mensagem.contains("sucesso")){
-		   
-		  	quantidade = (int) request.getSession().getAttribute("quantidade");
 			if(quantidade > 1){
 				response.sendRedirect("cadastrosacompanhante.jsp");
 			}else{
 				
-				response.sendRedirect("index.jsp");
+				response.sendRedirect("pagamento.jsp");
 			}
 	   }
 }
@@ -176,7 +174,7 @@ if(pagina.equals("compras")){
   </div>
 </div>
 </body>
-<!--Login Modal-->
+
 <!--Link para as pasta com os Scripts-->         
   	<script src="js/jquery.js"></script>
     <script src="js/jquery.mask.min.js"></script>
@@ -184,14 +182,10 @@ if(pagina.equals("compras")){
 	<script src="js/bootstrap.js"></script>    
     <script><!--máscaras para Inputs-->
         $('.cpf').mask('000.000.000-00');
-        $('.cnpj').mask('00.000.000/0000-00');
         $('.contato').mask('(00) 00000-0000');
         $('.cep').mask('00000-000');
 		$('.numero').mask('00000');		
         $('.dataNasc').mask('00/00/0000');
-        $('.placaCarro').mask('AAA-0000');
-        $('.horasMinutos').mask('00:00');
-        $('.cartaoCredito').mask('0000 0000 0000 0000');
 	</script>
   <script type="text/javascript">
 		function enviardados(){		
@@ -286,5 +280,4 @@ if(pagina.equals("compras")){
 			return true;
 		}		  
 	</script>
- </body>  
  </html>

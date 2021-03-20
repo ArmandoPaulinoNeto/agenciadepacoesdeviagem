@@ -10,46 +10,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-LugaresRepository LR = new LugaresRepository();
-PacotesRepository LP = new PacotesRepository();
-ImagensRepository LI = new ImagensRepository();
-DateTrasform dataString = new DateTrasform();
-ConverteValores converteValores = new ConverteValores();
-Long codigo = (Long) session.getAttribute("codigo");
-int quantidade = 0;
-String saida = "";
-
 String pagina = (String) session.getAttribute("pagina");
 String mensagem = (String) session.getAttribute("mensagem");
-if(pagina.equals("pacotes")){
+ConverteValores converteValores = new ConverteValores();
+String subtotal = (String) request.getSession().getAttribute("subtotal");
+if(pagina.equals("cadastros")){
 	
-	session.setAttribute("pagina", "compras");	
-	quantidade = Integer.parseInt(request.getParameter("pessoas"));
-	session.setAttribute("quantidade", quantidade);
-	saida = request.getParameter("saida");
-	session.setAttribute("saida", saida);
+	session.setAttribute("pagina", "finalizarcompra");	
 }else{
-	quantidade = (int) session.getAttribute("quantidade");
-	saida = (String) session.getAttribute("saida");
-}
-/*
-if(mensagem != null){
+	
 	if(mensagem.contains("sucesso")){
-		response.sendRedirect("cadastros.jsp");
-	}else{
-			%><script>
-				alert(<%=mensagem%>);
-			</script>		    
-		<%
-	}	
+		
+		%><script>
+			alert(<%=mensagem%>);
+		</script>		    
+		<%response.sendRedirect("index.jsp");
+	}
 }
-*/
-Lugares lugar = LR.buscar(codigo);
-Pacotes pacote = LP.buscar(lugar.getId());
-List<Imagens> ResultImagens = LI.buscarImagens(pacote.getId());
-
-String subtotal = converteValores.valorParaReal(pacote.getValor(), quantidade);
-session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
 %>
 <html lang="pt-br">
 <head>
@@ -116,7 +93,6 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
 							<p class="label">Nome do titular</p>
 							<p class="nombre">NOME IMPRESSO NO CARTÃO</p>
 						</div>
-
 						<div class="grupo" id="expiracion">
 							<p class="label">Validade</p>
 							<p class="expiracion"><span class="mes">MM</span> / <span class="year">AA</span></p>
@@ -137,8 +113,8 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
 						<p class="ccv"></p>
 					</div>
 				</div>
-				<p class="leyenda">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus exercitationem, voluptates illo.</p>
-				<a href="#" class="link-banco">www.tubanco.com</a>
+				<p class="legenda">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus exercitationem, voluptates illo.</p>
+				<a href="#" class="link-banco">www.isoftware.com.br</a>
 			</div>
 		</section>
 
@@ -150,14 +126,14 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
 		</div>
 
 		<!-- Formulario -->
-		<form action="" id="formulario-cartao" class="formulario-cartao">
+		<form action="${pageContext.request.contextPath}/cliente" method="post" id="formulario-cartao" class="formulario-cartao">
 			<div class="grupo">
 				<label for="inputNumero">Número do cartão</label>
-				<input type="text" id="inputNumero" maxlength="19" autocomplete="off">
+				<input type="text" name="inputNumero" id="inputNumero" maxlength="19" autocomplete="off">
 			</div>
 			<div class="grupo">
 				<label for="inputNome">Nome do titular</label>
-				<input type="text" id="inputNome" maxlength="19" autocomplete="off">
+				<input type="text" name="inputNome" id="inputNome" maxlength="19" autocomplete="off">
 			</div>
 			<div class="flexbox">
 				<div class="grupo expira">
@@ -180,9 +156,46 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
 
 				<div class="grupo ccv">
 					<label for="inputCCV">CVC</label>
-					<input type="text" id="inputCCV" maxlength="3">
+					<input type="text" name="inputCCV" id="inputCCV" maxlength="3">
 				</div>
 			</div>
+			<div class="form-row"><!--form-row dados do pagamento-->                
+                 <div class="form-row"><!--form-row-->
+                         <div class="form-group col-sm-4">
+                                 <label>CPF do titular:</label>
+                                 <input class="cpf form-control" onBlur="javascript: validarCPF(this.value);" name="txtCPFtitular" id="txtCPFtitular" placeholder="000.000.000-00">
+                         </div>
+                         <div class="form-group col-sm-4">
+                                 <label>Data de Nascimento</label>
+                                 <input class="dataNasc form-control" name="txtDataNascimento" id="txtDataNascimento" placeholder="00/00/0000">
+                         </div>
+                         <div class="form-group col-sm-4">
+                                 <label>Contato:</label>
+                                 <input class="contato form-control" name="txtContato" id="txtContato" placeholder="(00) 00000-0000">
+                         </div>
+                         <div class="form-group col-sm-4">                                                                            
+                         </div>
+                         <div class="form-group col-sm-4">
+                         </div>                                                                    
+                         <div class="float-right form-group col-sm-4">
+                            <label>N. de Parcelas:</label>
+                            <select id="sltParcelas" name="sltParcelas">
+                                <option value="1">1 x <%=subtotal%></option>
+                                <option value="2">2 x <%=converteValores.valorParcelaBigDecimal(subtotal, "2") %></option>
+                                <option value="3">3 x <%=converteValores.valorParcelaBigDecimal(subtotal, "3") %></option>
+                                <option value="4">4 x <%=converteValores.valorParcelaBigDecimal(subtotal, "4") %></option>
+                                <option value="5">5 x <%=converteValores.valorParcelaBigDecimal(subtotal, "5") %></option>
+                                <option value="6">6 x <%=converteValores.valorParcelaBigDecimal(subtotal, "6") %></option>
+                                <option value="7">7 x <%=converteValores.valorParcelaBigDecimal(subtotal, "7") %></option>
+                                <option value="8">8 x <%=converteValores.valorParcelaBigDecimal(subtotal, "8") %></option>
+                                <option value="9">9 x <%=converteValores.valorParcelaBigDecimal(subtotal, "9") %></option>
+                                <option value="10">10 x <%=converteValores.valorParcelaBigDecimal(subtotal, "10") %></option>
+                                <option value="11">11 x <%=converteValores.valorParcelaBigDecimal(subtotal, "11") %></option>
+                                <option value="12">12 x <%=converteValores.valorParcelaBigDecimal(subtotal, "12") %></option>
+                            </select>
+                 			</div>
+                 </div><!--form-row-->
+        	</div><!--form-row dados do pagamento-->
 			<button type="submit" class="btn-enviar">Enviar</button>
 		</form>
 	</div>
@@ -205,4 +218,48 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
 <!--fim rodape_site-->
 </body>
 <!--Link para as pasta com os Scripts-->
+<script type="text/javascript">
+		function validarCPF(strCPF) {
+			
+			strCPF = strCPF.replace(/[^0-9]/g, '')
+		    var  Soma = 0;
+		    var Resto;
+		   
+			if (strCPF == ""){				
+				$("#txtCPFtitular").addClass("is-invalid");
+				return false;
+			}			  
+		  	for (i=1; i<=9; i++){
+		  		Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+		  	}
+		  	
+		 	Resto = (Soma * 10) % 11;
+		
+		    if ((Resto == 10) || (Resto == 11)){
+		    	Resto = 0;
+		    }				
+		    if (Resto != parseInt(strCPF.substring(9, 10))){
+		    	$("#txtCPFtitular").addClass("is-invalid");
+		    	return false;
+		    }
+		    
+		  	Soma = 0;
+		  	
+		    for (i = 1; i <= 10; i++){
+		    	Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+		    }
+				
+		    Resto = (Soma * 10) % 11;		
+		    if ((Resto == 10) || (Resto == 11)){
+		    	Resto = 0;
+		    }				
+		    if (Resto != parseInt(strCPF.substring(10, 11) )){
+		    	$("#txtCPFtitular").addClass("is-invalid");
+		    	return false;
+		    }
+		    $("#txtCPFtitular").removeClass("is-invalid");
+		    $("#txtCPFtitular").addClass("is-valid");
+		    return true;
+		}	
+	</script>
  </html>

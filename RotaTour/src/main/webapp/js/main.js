@@ -103,13 +103,7 @@ formulario.inputCCV.addEventListener('keyup', () => {
 });
 
 var ReturnFlag = {
-
-	    /**
-	    * getCardFlag
-	    * Return card flag by number
-	    *
-	    * @param cardnumber
-	    */   
+	   
 	    getCardFlag: function(cardnumber) {
 	        var cardnumber = cardnumber.replace(/[^0-9]+/g, '');
 
@@ -133,6 +127,5 @@ var ReturnFlag = {
 
 	        return '';
 	    }
-
 	}
 
