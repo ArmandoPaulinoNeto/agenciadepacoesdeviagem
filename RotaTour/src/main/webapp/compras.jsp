@@ -17,34 +17,15 @@ ImagensRepository LI = new ImagensRepository();
 DateTrasform dataString = new DateTrasform();
 ConverteValores converteValores = new ConverteValores();
 Long codigo = (Long) session.getAttribute("codigo");
-int quantidade = 0;
-String saida = "";
 
-String pagina = (String) session.getAttribute("pagina");
-String mensagem = (String) session.getAttribute("mensagem");
-if(pagina.equals("pacotes")){
-	
-	session.setAttribute("pagina", "compras");	
-	quantidade = Integer.parseInt(request.getParameter("pessoas"));
-	session.setAttribute("quantidade", quantidade);
-	saida = request.getParameter("saida");
-	session.setAttribute("saida", saida);
-}else{
-	quantidade = (int) session.getAttribute("quantidade");
-	saida = (String) session.getAttribute("saida");
-}
-/*
-if(mensagem != null){
-	if(mensagem.contains("sucesso")){
-		response.sendRedirect("cadastros.jsp");
-	}else{
-			%><script>
-				alert(<%=mensagem%>);
-			</script>		    
-		<%
-	}	
-}
-*/
+int quantidade = Integer.parseInt(request.getParameter("pessoas"));
+session.setAttribute("quantidade", quantidade);
+String saida = request.getParameter("saida");
+System.out.println(saida);
+session.setAttribute("saida", saida);
+System.out.println(saida);
+//String pagina = (String) session.getAttribute("pagina");
+session.setAttribute("pagina", "compras");
 Lugares lugar = LR.buscar(codigo);
 Pacotes pacote = LP.buscar(lugar.getId());
 List<Imagens> ResultImagens = LI.buscarImagens(pacote.getId());

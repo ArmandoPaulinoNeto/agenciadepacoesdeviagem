@@ -3,7 +3,6 @@ package br.com.isoftware.rotatour.view;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -61,18 +60,19 @@ public class cliente extends HttpServlet {
 			DateTrasform dataTransform = new DateTrasform();
 			ConverteValores converteValores;
 			String pagina = (String) request.getSession().getAttribute("pagina");
-			System.out.println(pagina);
+			
 			if(pagina.equals("acessar")) {
 			    
 					String login = request.getParameter("txtLogin");
 					String senha = request.getParameter("txtSenha");
-					Short tipoAcesso = new Short((String) request.getSession().getAttribute("tipoAcesso"));
+					//Short tipoAcesso = new Short((String) request.getSession().getAttribute("tipoAcesso"));
 					boolean logar = false;
 					AcessoRepository repository = new AcessoRepository();
 					
 					List<Acesso> acessoLisata = repository.listar();
 					
-					for (Acesso acesso : acessoLisata) {					
+					for (Acesso acesso : acessoLisata) {
+						
 						if((login.equals(acesso.getLogin())) && (senha.equals(acesso.getSenha()))){
 							
 							System.out.println("Login efetuado com sucesso!");
@@ -84,16 +84,17 @@ public class cliente extends HttpServlet {
 						 request.getSession().setAttribute("pagina", "cadastropacotes");
 						 response.sendRedirect("cadastrospacotes.jsp");
 					 }else {
+						 
 						 response.sendRedirect("index.jsp");
 					 }	
 			}if(pagina.equals("compras")) {
 				
 					request.getSession().setAttribute("Login", request.getParameter("txtLogin"));
 					request.getSession().setAttribute("Senha", request.getParameter("txtSenha"));
-					
 					boolean selecionado = (boolean) request.getSession().getAttribute("selecionado");
 					
 					if(selecionado) {
+						
 						request.getSession().setAttribute("DataIda", request.getParameter("txtDataIda"));
 						request.getSession().setAttribute("DataIda1", request.getParameter("txtDataIda1"));
 						request.getSession().setAttribute("DataIda2", request.getParameter("txtDataIda2"));
@@ -116,25 +117,37 @@ public class cliente extends HttpServlet {
 						request.getSession().setAttribute("Email", request.getParameter("txtEmail"));
 						request.getSession().setAttribute("Contato", request.getParameter("txtContato"));
 						request.getSession().setAttribute("quantidade", quantidade);
+						
 						request.getSession().setAttribute("mansagem", "Cadastros realizados com sucesso!");
-						request.getSession().setAttribute("pagina", "cadastros");
-						response.sendRedirect("cadastros.jsp");
+						
+						if(quantidade > 1){
+							
+							response.sendRedirect("cadastrosacompanhante.jsp");
+						}else{
+							
+							response.sendRedirect("pagamento.jsp");
+						}
+						//response.sendRedirect("cadastros.jsp");
 			}if(pagina.equals("acompanhantes")){
+
 					int quantidade = (int) request.getSession().getAttribute("quantidade");
 					for (int i = 1; i < (quantidade-1); i++) {
 						
 							request.getSession().setAttribute("acNome"+String.valueOf(i), request.getParameter("txtNome"+String.valueOf(i)));
 							request.getSession().setAttribute("acDataNascimento"+String.valueOf(i), request.getParameter("txtDataNascimento"+String.valueOf(i)));							
 					 }						
-						
+
 					 request.getSession().setAttribute("mensagem", "Cadastros realizados com sucesso!");
-					 response.sendRedirect("cadastros.jsp");
+					 request.getSession().setAttribute("pagina", "acompanhantes");
+					 
+					 response.sendRedirect("pagamento.jsp");
 			}if(pagina.equals("finalizarcompra")){
 				
 				converteValores = new ConverteValores();
 				
 				int quantidade = (int) request.getSession().getAttribute("quantidade");
 				String saida = (String) request.getSession().getAttribute("saida");
+			
 				Pacotes pacote = (Pacotes) request.getSession().getAttribute("pacote");
 				String subtotal = (String) request.getSession().getAttribute("subtotal");
 				
@@ -157,8 +170,10 @@ public class cliente extends HttpServlet {
 				String[] numeroCompleto = ((String) request.getSession().getAttribute("Contato")).replace("(", "").replace(")", "").replace("-", "").split(" ");
 				String ddd = numeroCompleto[0];
 				String contato = numeroCompleto[1];
+				
 				//CLIENTE
 				Clientes cliente = control.cadastrarCliente(cpf, nome, sexo, dataNacimento, ddd, contato, logradouro, numero, bairro, cidade, cep, uf, email);
+				
 				//ACOMPANHANTE
 				if(quantidade > 1) {
 					for (int i = 1; i < (quantidade-1); i++) {
@@ -191,17 +206,22 @@ public class cliente extends HttpServlet {
 				String[] numCompleto = ((String) request.getSession().getAttribute("Contato")).replace("(", "").replace(")", "").replace("-", "").split(" ");
 				String titularDDD = numCompleto[0];
 				String titularContato = numCompleto[1];
+				
 				//PAGAMENTO 
 				Pagamento pagamento = control.cadastrarPagamento(converteValores.valorParaBigDecimal(subtotal), new Date());
+				
 				if(!parcelas.equals("1")){
+					
 					BigDecimal parcela = converteValores.valorParcelaBigDecimal(subtotal, parcelas);
 					control.cadastrarParcelamento(pagamento, parcela, new Short(parcelas));
 				}
+				
 				//COMPRA
 				control.cadastrarCompra(pagamento, viagem, acesso, new Short(String.valueOf(quantidade)), cupomFiscal(), converteValores.valorParaBigDecimal(subtotal), new Date());						
 				
 				//CARTÃO
 				if(validade.length() < 4){
+					
 					validade = "0"+validade;
 				}
 				control.cadastrarCartao(pagamento, numCartao, nomeTitular, validade, codSeguranca, cpfTitular, titularDataNacimento, titularDDD, titularContato);

@@ -14,7 +14,9 @@ String pagina = (String) session.getAttribute("pagina");
 String mensagem = (String) session.getAttribute("mensagem");
 ConverteValores converteValores = new ConverteValores();
 String subtotal = (String) request.getSession().getAttribute("subtotal");
-if(pagina.equals("cadastros")){
+String parcelas[] = converteValores.RetornaValoresParcelas(subtotal);
+
+if(pagina.equals("cadastros") || pagina.equals("acompanhantes")){
 	
 	session.setAttribute("pagina", "finalizarcompra");	
 }else{
@@ -181,17 +183,17 @@ if(pagina.equals("cadastros")){
                             <label>N. de Parcelas:</label>
                             <select id="sltParcelas" name="sltParcelas">
                                 <option value="1">1 x <%=subtotal%></option>
-                                <option value="2">2 x <%=converteValores.valorParcelaBigDecimal(subtotal, "2") %></option>
-                                <option value="3">3 x <%=converteValores.valorParcelaBigDecimal(subtotal, "3") %></option>
-                                <option value="4">4 x <%=converteValores.valorParcelaBigDecimal(subtotal, "4") %></option>
-                                <option value="5">5 x <%=converteValores.valorParcelaBigDecimal(subtotal, "5") %></option>
-                                <option value="6">6 x <%=converteValores.valorParcelaBigDecimal(subtotal, "6") %></option>
-                                <option value="7">7 x <%=converteValores.valorParcelaBigDecimal(subtotal, "7") %></option>
-                                <option value="8">8 x <%=converteValores.valorParcelaBigDecimal(subtotal, "8") %></option>
-                                <option value="9">9 x <%=converteValores.valorParcelaBigDecimal(subtotal, "9") %></option>
-                                <option value="10">10 x <%=converteValores.valorParcelaBigDecimal(subtotal, "10") %></option>
-                                <option value="11">11 x <%=converteValores.valorParcelaBigDecimal(subtotal, "11") %></option>
-                                <option value="12">12 x <%=converteValores.valorParcelaBigDecimal(subtotal, "12") %></option>
+                                <option value="2">2 x <%=parcelas[0] %></option>
+                                <option value="3">3 x <%=parcelas[1] %></option>
+                                <option value="4">4 x <%=parcelas[2] %></option>
+                                <option value="5">5 x <%=parcelas[3] %></option>
+                                <option value="6">6 x <%=parcelas[4] %></option>
+                                <option value="7">7 x <%=parcelas[5] %></option>
+                                <option value="8">8 x <%=parcelas[6] %></option>
+                                <option value="9">9 x <%=parcelas[7] %></option>
+                                <option value="10">10 x <%=parcelas[8] %></option>
+                                <option value="11">11 x <%=parcelas[9] %></option>
+                                <option value="12">12 x <%=parcelas[10] %></option>
                             </select>
                  			</div>
                  </div><!--form-row-->

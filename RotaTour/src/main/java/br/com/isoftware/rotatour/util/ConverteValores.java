@@ -35,4 +35,20 @@ public class ConverteValores {
 	        BigDecimal bigDecimal = (new BigDecimal(String.valueOf(((valorParaBigDecimal(str).doubleValue() / 100)/ Integer.parseInt(parcelas)))));
 	        return bigDecimal;
 	}
+   	public String[] RetornaValoresParcelas(String str) {
+   		
+   			String[] parcelas = new String[11];
+   			NumberFormat nf = NumberFormat.getCurrencyInstance();
+   			
+	        str = str.replace(".","");
+	        str = str.replace(",", ".");
+	        str = str.replace("R$ ", "");
+	        str = str.trim();
+	        
+	        for (int i = 0; i < parcelas.length; i++) {
+	        	 parcelas[i] = nf.format (new BigDecimal(String.valueOf(((valorParaBigDecimal(str).doubleValue() / 100)/ (i+2))))) ;
+			}
+	        
+	        return parcelas;
+	}
 }

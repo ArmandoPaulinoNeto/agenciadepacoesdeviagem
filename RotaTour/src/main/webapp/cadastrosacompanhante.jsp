@@ -12,13 +12,10 @@ String pagina = (String) session.getAttribute("pagina");
 String saida;
 int quantidade = 0;
 
-if(pagina.equals("cadastros")){	
+if(pagina.equals("cadastros")){
 	
 	session.setAttribute("pagina", "acompanhantes");
 	quantidade = (int) session.getAttribute("quantidade");	
-	
-	saida = request.getParameter("saida");
-	session.setAttribute("saida", saida);		
 }else{
 	
 		if(mensagem.contains("sucesso")){

@@ -9,7 +9,7 @@
 <%
 String mensagem = (String) session.getAttribute("mansagem");
 String pagina = (String) session.getAttribute("pagina");
-String saida = (String) session.getAttribute("saida");
+//String saida = (String) session.getAttribute("saida");
 int quantidade = (int) session.getAttribute("quantidade");
 System.out.println(pagina);
 
