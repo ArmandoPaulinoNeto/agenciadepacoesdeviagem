@@ -78,7 +78,7 @@ if(pagina.equals("compras")){
                     <div class="row justify-content-center mb-5">
               			<div class="col-sm-12 col-md-10 col-lg-8 text-center my-3">
                         <div class="linha mb-5"></div>
-                        	  <form name="cadastroPacotes" action="${pageContext.request.contextPath}/cliente" method="post"><!-- onSubmit="return enviardados();" -->
+                        	  <form name="cadastroPacotes" action="${pageContext.request.contextPath}/CadastroPacote" method="post"><!-- onSubmit="return enviardados();" -->
                                 <div class="form-row">
                                      <div class="form-group col-sm-4">
                                             <label>País:</label>

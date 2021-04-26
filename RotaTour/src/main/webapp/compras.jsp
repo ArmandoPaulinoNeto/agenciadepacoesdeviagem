@@ -24,8 +24,6 @@ String saida = request.getParameter("saida");
 System.out.println(saida);
 session.setAttribute("saida", saida);
 System.out.println(saida);
-//String pagina = (String) session.getAttribute("pagina");
-session.setAttribute("pagina", "compras");
 Lugares lugar = LR.buscar(codigo);
 Pacotes pacote = LP.buscar(lugar.getId());
 List<Imagens> ResultImagens = LI.buscarImagens(pacote.getId());
@@ -122,7 +120,7 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
                                             </a>
                                          </div><!--carousel-show-->
                                          <div class="dt"><!--Detalhes do produto--> 
-                                            <form class="m-2 bg-light" name="cadatroCartao" action="${pageContext.request.contextPath}/cliente" method="post" onSubmit="return enviardados();">
+                                            <form class="m-2 bg-light" name="cadatroCartao" action="${pageContext.request.contextPath}/Compra" method="post" onSubmit="return enviardados();">
                                                   <div class="form-row">
                                                         <div class="form-row">
                                                         	<h6 class="display-5 col-sm-12 text-primary">Escolha a data da sua viagem.</h6>
@@ -270,11 +268,12 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
     <script type="text/javascript">
 	  function desabilitar(selecionado) {
 		  
-		    if(selecionado){
+		    if(selecionado){		    	
+		    	
+		    	<%session.setAttribute("selecionado", true);%>
+		    }else{
 		    	
 		    	<%session.setAttribute("selecionado", false);%>
-		    }else{
-		    	<%session.setAttribute("selecionado", true);%>
 		    }
 		    document.getElementById('txtDataIda').disabled = selecionado;
 		    document.getElementById('txtDataIda1').disabled = selecionado;

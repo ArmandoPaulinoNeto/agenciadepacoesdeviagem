@@ -7,27 +7,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-String mensagem = (String) session.getAttribute("mensagem");
-String pagina = (String) session.getAttribute("pagina");
-String saida;
-int quantidade = 0;
-
-if(pagina.equals("cadastros")){
-	
-	session.setAttribute("pagina", "acompanhantes");
-	quantidade = (int) session.getAttribute("quantidade");	
-}else{
-	
-		if(mensagem.contains("sucesso")){
-			 response.sendRedirect("index.jsp");
-		}else{
-			quantidade = (int) session.getAttribute("quantidade");
-			%><script>
-					alert(<%=mensagem%>);
-			  </script>		    
-			<%
-		}			
-}
+	int quantidade = (int) session.getAttribute("quantidade");
 %>
 <html lang="pt-br">
 <head>
@@ -79,7 +59,7 @@ if(pagina.equals("cadastros")){
                     <div class="row justify-content-center mb-5">
               			<div class="col-sm-12 col-md-10 col-lg-8 text-center my-3">
                         <div class="linha mb-5"></div>
-                        	  <form name="cadastroCliente" action="${pageContext.request.contextPath}/cliente" method="post" onSubmit="return enviardados();">
+                        	  <form name="cadastroCliente" action="${pageContext.request.contextPath}/CadastroAcompanhante" method="post" onSubmit="return enviardados();">
                                 <div class="form-row"> <% 
                        	    for(int i = 1; i < quantidade; i++){
                        		       String nomes = "txtNome"+String.valueOf(i);//txtDataNascimento

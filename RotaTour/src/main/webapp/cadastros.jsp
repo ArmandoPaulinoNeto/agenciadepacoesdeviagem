@@ -6,7 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
+<%/*
 String mensagem = (String) session.getAttribute("mansagem");
 String pagina = (String) session.getAttribute("pagina");
 //String saida = (String) session.getAttribute("saida");
@@ -25,7 +25,7 @@ if(pagina.equals("compras")){
 				response.sendRedirect("pagamento.jsp");
 			}
 	   }
-}
+}*/
 %>
 <html lang="pt-br">
 <head>
@@ -77,7 +77,7 @@ if(pagina.equals("compras")){
                     <div class="row justify-content-center mb-5">
               			<div class="col-sm-12 col-md-10 col-lg-8 text-center my-3">
                         <div class="linha mb-5"></div>
-                        	  <form name="cadastroCliente" action="${pageContext.request.contextPath}/cliente" method="post" onSubmit="return enviardados();">
+                        	  <form name="cadastroCliente" action="${pageContext.request.contextPath}/CadastroCliente" method="post" onSubmit="return enviardados();">
                                 <div class="form-row">
                                      <div class="form-group col-sm-5">
                                             <label>Nome:</label>

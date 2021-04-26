@@ -4,4 +4,9 @@ import br.com.isoftware.rotatour.domain.Compra;
 
 public class CompraRepository extends GerericRepository<Compra> {	
 	
+	public void salvarCompra(Compra compra) {
+		
+		
+		
+	}
 }

@@ -10,25 +10,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-String pagina = (String) session.getAttribute("pagina");
-String mensagem = (String) session.getAttribute("mensagem");
 ConverteValores converteValores = new ConverteValores();
 String subtotal = (String) request.getSession().getAttribute("subtotal");
 String parcelas[] = converteValores.RetornaValoresParcelas(subtotal);
-
-if(pagina.equals("cadastros") || pagina.equals("acompanhantes")){
-	
-	session.setAttribute("pagina", "finalizarcompra");	
-}else{
-	
-	if(mensagem.contains("sucesso")){
-		
-		%><script>
-			alert(<%=mensagem%>);
-		</script>		    
-		<%response.sendRedirect("index.jsp");
-	}
-}
 %>
 <html lang="pt-br">
 <head>
@@ -128,7 +112,7 @@ if(pagina.equals("cadastros") || pagina.equals("acompanhantes")){
 		</div>
 
 		<!-- Formulario -->
-		<form action="${pageContext.request.contextPath}/cliente" method="post" id="formulario-cartao" class="formulario-cartao">
+		<form action="${pageContext.request.contextPath}/FinalizarCompra" method="post" id="formulario-cartao" class="formulario-cartao">
 			<div class="grupo">
 				<label for="inputNumero">Número do cartão</label>
 				<input type="text" name="inputNumero" id="inputNumero" maxlength="19" autocomplete="off">

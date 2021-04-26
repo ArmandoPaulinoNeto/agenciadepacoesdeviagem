@@ -101,7 +101,7 @@ List<Pacotes> resultPacotes = LP.listar();
  <!--Login Modal-->
 <div id="loginModal" class="modal fade" tabindex="-1" role="dialog">
  		 <div class="modal-dialog modal-dialog-centered" role="document">
-		 		<form class="m-2 bg-light" name=formAcesso action="${pageContext.request.contextPath}/cliente" method="post" onSubmit="return acessoLogin();"> 
+		 		<form class="m-2 bg-light" name=formAcesso action="${pageContext.request.contextPath}/Acessar" method="post" onSubmit="return acessoLogin();"> 
 		    	 <div class="modal-content">
 			         <div class="modal-header">
 			            <h5 class="modal-title" id="titulo">Administrador</h5>            
@@ -154,7 +154,6 @@ List<Pacotes> resultPacotes = LP.listar();
 			if (document.formAcesso.txtLogin.value == "" || document.formAcesso.txtSenha.value == ""){
 				return false;
 			}
-			<%session.setAttribute("pagina", "acessar");%>
 			return true;
 		}
 	</script>
