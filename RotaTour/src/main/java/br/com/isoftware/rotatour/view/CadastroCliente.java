@@ -1,31 +1,11 @@
 package br.com.isoftware.rotatour.view;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import br.com.isoftware.rotatour.controller.Controller;
-import br.com.isoftware.rotatour.controller.util.DateTrasform;
-import br.com.isoftware.rotatour.domain.Acesso;
-import br.com.isoftware.rotatour.domain.Clientes;
-import br.com.isoftware.rotatour.domain.Imagens;
-import br.com.isoftware.rotatour.domain.Lugares;
-import br.com.isoftware.rotatour.domain.Pacotes;
-import br.com.isoftware.rotatour.domain.Pagamento;
-import br.com.isoftware.rotatour.domain.Viagem;
-import br.com.isoftware.rotatour.model.repository.AcessoRepository;
-import br.com.isoftware.rotatour.model.repository.ImagensRepository;
-import br.com.isoftware.rotatour.model.repository.LugaresRepository;
-import br.com.isoftware.rotatour.model.repository.PacotesRepository;
-import br.com.isoftware.rotatour.util.ConverteValores;
 
 /**
  * Servlet implementation class cadastrocliente
