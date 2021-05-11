@@ -6,8 +6,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-String pagina = (String) request.getSession().getAttribute("pagina");
-session.setAttribute("pagina", "index");
 Lugares lugares = new Lugares();
 Pacotes pacote = new Pacotes();
 LugaresRepository LR = new LugaresRepository();
@@ -69,7 +67,7 @@ List<Pacotes> resultPacotes = LP.listar();
 	         <div class="details">
 	            <h6><%out.print(resultLugares.get(i).getPais());%><br><span><%out.print(resultLugares.get(i).getCidade());%></span></h6>
 	            <h8>R$: <%out.print(resultPacotes.get(i).getValor());%><br><span>por pessoas</span></h8></br>
-	             <a href="pacotes.jsp?id=<%=resultLugares.get(i).getId()%>">Mais detalhes</a><!-- <button type="button" class="btn btn-link">Link</button> -->
+	             <a href="PacoteDAO?id=<%=resultLugares.get(i).getId()%>">Mais detalhes</a><!-- <button type="button" class="btn btn-link">Link</button> -->
 	         </div>
 	      </div>
 		<%}%>

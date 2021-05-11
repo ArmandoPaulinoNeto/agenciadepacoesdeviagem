@@ -7,30 +7,9 @@
 <%@page import="br.com.isoftware.rotatour.domain.Pacotes"%>
 <%@page import="br.com.isoftware.rotatour.model.repository.ImagensRepository"%>
 <%@page import="br.com.isoftware.rotatour.domain.Lugares"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<%
-LugaresRepository LR = new LugaresRepository();
-PacotesRepository LP = new PacotesRepository();
-ImagensRepository LI = new ImagensRepository();
-DateTrasform dataString = new DateTrasform();
-ConverteValores converteValores = new ConverteValores();
-Long codigo = (Long) session.getAttribute("codigo");
-
-int quantidade = Integer.parseInt(request.getParameter("pessoas"));
-session.setAttribute("quantidade", quantidade);
-String saida = request.getParameter("saida");
-System.out.println(saida);
-session.setAttribute("saida", saida);
-System.out.println(saida);
-Lugares lugar = LR.buscar(codigo);
-Pacotes pacote = LP.buscar(lugar.getId());
-List<Imagens> ResultImagens = LI.buscarImagens(pacote.getId());
-
-String subtotal = converteValores.valorParaReal(pacote.getValor(), quantidade);
-session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
-%>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -77,16 +56,16 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
                         <!--div class="direita"-->
                               <div class="direita">
                               		<!-- Conteudo dos detalhes-->
-                                    <h6><b>Pacote <%out.print(lugar.getCidade());%> - 2021</b></h6>
+                                    <h6><b>Pacote ${cidade} - 2021</b></h6>
                                 	<div><b>Aéreo</b> <img src="imagens/icinspacote/aeria.png">&nbsp;<b>Hotel</b> <img src="imagens/icinspacote/hotel.png">&nbsp;<b>Transporte</b> <img src="imagens/icinspacote/transporte.png"></div>
                                     	<div class="linha"></div>
                                             <div class="card border-primary mb-3" style="max-width: 18rem;">
                                               <div class="card-header bg-light">Opções do Pacote:</div>
                                               <div class="card-body text-primary">
                                               <h5 class="card-title">Configuração:</h5>                                              
-                                              <p class="card-text"><b>Pessoas: </b><%=quantidade%></p>
-                                              <p class="card-text"><b>Diarias: </b><%=pacote.getDiarias()%></p>
-                                              <p class="card-text"><b>Saída: </b><%=saida%></p>
+                                              <p class="card-text"><b>Pessoas: </b>${quantidade}</p>
+                                              <p class="card-text"><b>Diarias: </b>${diarias}</p>
+                                              <p class="card-text"><b>Saída: </b>${saida}</p>
                                               <div class="linha"></div>
                                               <h5 class="card-title">Periodo da Viagem:</h5>
                                               <p class="card-text"><b>A partir da data: </b>01 Abr 2021</p>
@@ -94,8 +73,8 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
                                               <div class="linha"></div>
                                               <h5 class="card-title">Valor da compra:</h5>
                                               <div class="linha"></div>
-                                              <p class="card-text" name="" id="preco"><b>Pacote: </b><%=converteValores.valorParaReal(pacote.getValor())%></p>
-                                              <p class="card-text" name="subtotal"  id="subtotal"><b>Subtototal: </b><%=subtotal%></p>
+                                              <p class="card-text" name="" id="preco"><b>Pacote: </b>${preco}</p>
+                                              <p class="card-text" name="subtotal"  id="subtotal"><b>Subtototal: </b>${subtotal}</p>
                                           	  </div>
 											</div>
                           </div><!--div class="direita"-->                        	 
@@ -105,10 +84,10 @@ session.setAttribute("subtotal", subtotal.replace("R$ ", ""));
                                     <div class="quadro">
                                         <div id="carouselsite" class="carousel show" data-ride="carousel">
                                                 <div class="carousel-inner">
-                                                    <div class="carousel-item active"><img src="imagens/lugares/<%=ResultImagens.get(0).getImagem()%>" class="img-fluid d-block"></div>         
-                                                    <div class="carousel-item"><img src="imagens/lugares/<%=ResultImagens.get(1).getImagem()%>" class="img-fluid d-block"></div>
-                                                    <div class="carousel-item"><img src="imagens/lugares/<%=ResultImagens.get(2).getImagem()%>" class="img-fluid d-block"></div>
-                                                    <div class="carousel-item"><img src="imagens/lugares/<%=ResultImagens.get(3).getImagem()%>" class="img-fluid d-block"></div>                
+                                                    <div class="carousel-item active"><img src="imagens/lugares/${primera}" class="img-fluid d-block"></div>         
+                                                    <div class="carousel-item"><img src="imagens/lugares/${segunda}" class="img-fluid d-block"></div>
+                                                    <div class="carousel-item"><img src="imagens/lugares/${terceira}" class="img-fluid d-block"></div>
+                                                    <div class="carousel-item"><img src="imagens/lugares/${terceira}" class="img-fluid d-block"></div>                
                                                 </div><!--carousel-inner-->
                                             <a class="carousel-control-prev" href="#carouselsite" role="button" data-slide="prev">
                                                 <span class="carousel-control-prev-icon"></span>

@@ -7,24 +7,9 @@
 <%@page import="br.com.isoftware.rotatour.domain.Pacotes"%>
 <%@page import="br.com.isoftware.rotatour.model.repository.ImagensRepository"%>
 <%@page import="br.com.isoftware.rotatour.domain.Lugares"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<%
-String pagina = (String) request.getSession().getAttribute("pagina");
-session.setAttribute("pagina", "pacotes");
-Long codigo = Long.parseLong(request.getParameter("id"));
-session.setAttribute("codigo", codigo);
-LugaresRepository LR = new LugaresRepository();
-PacotesRepository LP = new PacotesRepository();
-ImagensRepository LI = new ImagensRepository();
-Lugares lugar = LR.buscar(codigo);
-Pacotes pacote = LP.buscar(lugar.getId());
-session.setAttribute("pacote", pacote);
-List<Imagens> ResultImagens = LI.buscarImagens(codigo);
-ConverteValores converteValores = new ConverteValores();
-DateTrasform dataString = new DateTrasform();
-%>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -75,10 +60,10 @@ DateTrasform dataString = new DateTrasform();
                                       	<div class="quadro">
                                             <div id="carouselsite" class="carousel show" data-ride="carousel">
                                                 <div class="carousel-inner">
-                                                    <div class="carousel-item active"><img src="imagens/lugares/<%=ResultImagens.get(0).getImagem()%>" class="img-fluid d-block"></div>         
-                                                    <div class="carousel-item"><img src="imagens/lugares/<%=ResultImagens.get(1).getImagem()%>" class="img-fluid d-block"></div>
-                                                    <div class="carousel-item"><img src="imagens/lugares/<%=ResultImagens.get(2).getImagem()%>" class="img-fluid d-block"></div>
-                                                    <div class="carousel-item"><img src="imagens/lugares/<%=ResultImagens.get(3).getImagem()%>" class="img-fluid d-block"></div>                
+                                                    <div class="carousel-item active"><img src="imagens/lugares/${primera}" class="img-fluid d-block"></div>         
+                                                    <div class="carousel-item"><img src="imagens/lugares/${segunda}" class="img-fluid d-block"></div>
+                                                    <div class="carousel-item"><img src="imagens/lugares/${terceira}" class="img-fluid d-block"></div>
+                                                    <div class="carousel-item"><img src="imagens/lugares/${terceira}" class="img-fluid d-block"></div>                
                                                 </div>
                                                     <a class="carousel-control-prev" href="#carouselsite" role="button" data-slide="prev">
                                                         <span class="carousel-control-prev-icon"></span>
@@ -90,11 +75,11 @@ DateTrasform dataString = new DateTrasform();
                                                     </a>
                                                 </div>
                                                 	<div class="dt">
-                                                <b><%out.print(lugar.getCidade());%></b>
-                               <p></br><%out.print(lugar.getDetalhe());%></br>
-</br><b>Pais: </b><%out.print(lugar.getPais());%>
-</br><b>Capital: </b><%out.print(lugar.getCapital());%>
-</br><b>Moeda: </b><%out.print(lugar.getMoeda());%>
+                                                <b>${cidade}</b>
+                               <p></br>${detalhe}</br>
+</br><b>Pais: </b>${pais}
+</br><b>Capital: </b>${capital}
+</br><b>Moeda: </b>${moeda}
 </p>
 													</div>
                                             </div>    
@@ -103,7 +88,7 @@ DateTrasform dataString = new DateTrasform();
                               </div>
                               <div class="direita">
                               		<!-- Conteudo dos detalhes-->
-                                    <h3>Pacote <%out.print(lugar.getCidade());%> - 2021</h3>
+                                    <h3>Pacote ${cidade} - 2021</h3>
                                 	<div><b>Aéreo</b> <img src="imagens/icinspacote/aeria.png">&nbsp;<b>Hotel</b> <img src="imagens/icinspacote/hotel.png">&nbsp;<b>Transporte</b> <img src="imagens/icinspacote/transporte.png"></div>
                                     	<div class="linha"></div>
                                             <div class="card border-primary mb-3 ml-1" style="max-width: 18rem;">
@@ -112,11 +97,11 @@ DateTrasform dataString = new DateTrasform();
 												    <h5 class="card-title">Garanta seu pacote já!</h5>
 												    <div class="row ml-3"><b>De:</b><p class="card-text">&nbsp;01/abr/2021</p></div>
 												    <div class="row justify-content-end mr-5"><b>Ate:</b><p class="card-text">&nbsp;01/nov/2021</p></div>
-                                                    <form action="compras.jsp" method="post">
+                                                    <form action="CompraDAO?id=${codigo}" method="post">
                                                     	<div class="row my-3">
 		                                                    	<div class="ml-3 my-1"><p class="vlr"><b>Pessoas: </b></p></div>
 		                                                    	<div class="ml-2 my-1">
-		                                                    		<select id="pessoas" name="pessoas" onChange="atualizaPreco()">
+		                                                    		<select id="quantidade" name="quantidade" onChange="atualizaPreco()">
 						                                                <option value="1">1</option>
 						                                                <option value="2">2</option>
 						                                                <option value="3">3</option>
@@ -145,11 +130,11 @@ DateTrasform dataString = new DateTrasform();
 						                                        </div>
 						                                </div>
 						                                <div class="row my-4">       
-				                                        		<div class="ml-3 my-1"><p><b>Diarias: </b><%=pacote.getDiarias()%></p></div>
+				                                        		<div class="ml-3 my-1"><p><b>Diarias: </b>${diarias}</p></div>
 				                                        </div>
 													<div>
 		                                                  <div class="row">
-		                                                  		<div class="my-5 ml-3 mr-3"><b>R$:</b></div><div class="row my-2"><p class="display-4 btn-outline-warning" id="valor"><%=converteValores.valorParaReal(pacote.getValor()).replace("R$ ", "")%></p></div>
+		                                                  		<div class="my-5 ml-3 mr-3"><b>R$:</b></div><div class="row my-2"><p class="display-4 btn-outline-warning" id="preco">${preco}</p></div>
 		                                                  </div>
 		                                             </div>
 		                                             
@@ -187,18 +172,18 @@ DateTrasform dataString = new DateTrasform();
     <script type="text/javascript">
    		function atualizaPreco(){
    			
-   			var select = document.getElementById('pessoas');
+   			var select = document.getElementById('quantidade');
 			var option = select.options[select.selectedIndex];			
-			var valor = (parseInt(<%=pacote.getValor()%>)*parseInt(option.value));
+			var valor = (parseInt(${preco})*parseInt(option.value));
 			//var preco = valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
 			var preco = valor.toLocaleString('pt-br', {minimumFractionDigits: 2});
-			document.getElementById('valor').innerHTML = preco;  									
+			document.getElementById('preco').innerHTML = preco;  									
 		}
     </script>
     <script type="text/javascript">
    		function passoaValor(){
    			
-   			var select = document.getElementById('pessoas');
+   			var select = document.getElementById('quantidade');
 			var option = select.options[select.selectedIndex];			
 			return option.value; 									
 		}
