@@ -1,6 +1,7 @@
 package br.com.isoftware.rotatour.view;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -48,35 +49,15 @@ public class CompraDAO extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ConverteValores converteValores = new ConverteValores();
-		LugaresRepository LR = new LugaresRepository();
-		PacotesRepository LP = new PacotesRepository();
-		ImagensRepository LI = new ImagensRepository();
-		
-		Long codigo = Long.parseLong(request.getParameter("id"));
-		int quantidade = Integer.parseInt(request.getParameter("quantidade"));		
-		
-		Lugares lugar = LR.buscar(codigo);
-		Pacotes pacote = LP.buscar(lugar.getId());
-		List<Imagens> ResultImagens = LI.buscarImagens(codigo);		
-		request.setAttribute("quantidade", quantidade);
-		String saida = request.getParameter("saida");
-		request.getSession().setAttribute("saida", saida);
-		request.setAttribute("diarias", pacote.getDiarias());
-		request.setAttribute("pais", lugar.getPais());
-		request.setAttribute("capital", lugar.getCapital());
-		request.setAttribute("cidade", lugar.getCidade());		
-		request.setAttribute("preco", converteValores.valorParaReal(pacote.getValor()).replace("R$ ", ""));
-		request.setAttribute("codigo", codigo);
-		request.setAttribute("primera", ResultImagens.get(0).getImagem());
-		request.setAttribute("segunda", ResultImagens.get(1).getImagem());
-		request.setAttribute("terceira", ResultImagens.get(2).getImagem());
-		request.setAttribute("quarta", ResultImagens.get(3).getImagem());		
-		String subtotal = converteValores.valorParaReal(pacote.getValor(), quantidade);
-		System.out.println(subtotal);
+
+		int quantidade = Integer.parseInt(request.getParameter("quantidade"));				
+		request.getSession().setAttribute("quantidade", quantidade);		
+		request.getSession().setAttribute("saida", request.getParameter("saida"));		
+		BigDecimal valor = (BigDecimal) request.getSession().getAttribute("precoPacote");
+		String subtotal = converteValores.valorParaReal(valor, quantidade);
 		request.getSession().setAttribute("subtotal", subtotal.replace("R$ ", ""));	
-		RequestDispatcher destino = request.getRequestDispatcher("compras.jsp");
-		destino.forward(request, response);
 		
+		response.sendRedirect("compras.jsp");
 		doGet(request, response);
 	}//****************************Chave doPost*************************************************************
 		

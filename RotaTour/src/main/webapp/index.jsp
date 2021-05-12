@@ -67,7 +67,10 @@ List<Pacotes> resultPacotes = LP.listar();
 	         <div class="details">
 	            <h6><%out.print(resultLugares.get(i).getPais());%><br><span><%out.print(resultLugares.get(i).getCidade());%></span></h6>
 	            <h8>R$: <%out.print(resultPacotes.get(i).getValor());%><br><span>por pessoas</span></h8></br>
-	             <a href="PacoteDAO?id=<%=resultLugares.get(i).getId()%>">Mais detalhes</a><!-- <button type="button" class="btn btn-link">Link</button> -->
+	             <!--<a href="PacoteDAO?id=<%=resultLugares.get(i).getId()%>">Mais detalhes</a> <button type="button" class="btn btn-link">Link</button> -->
+	             <form action="${pageContext.request.contextPath}/PacoteDAO?id=<%=resultLugares.get(i).getId()%>" method="post">		                                             
+						<div class="row justify-content-end mr-2"><button class="btn btn-link" type="submit">Mais detalhes</button></div><!--onClick="parent.location.href='compras.jsp?id=1&quantidade=1'"-->
+				 </form>
 	         </div>
 	      </div>
 		<%}%>

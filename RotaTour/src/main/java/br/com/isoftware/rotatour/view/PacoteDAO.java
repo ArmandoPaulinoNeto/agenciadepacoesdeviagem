@@ -38,6 +38,15 @@ public class PacoteDAO extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	@SuppressWarnings("static-access")
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		ConverteValores converteValores = new ConverteValores();
 		Long codigo = Long.parseLong(request.getParameter("id"));
 		
@@ -47,35 +56,25 @@ public class PacoteDAO extends HttpServlet {
 		
 		Lugares lugar = LR.buscar(codigo);
 		Pacotes pacote = LP.buscar(lugar.getId());
-		List<Imagens> ResultImagens = LI.buscarImagens(codigo);
-		
+		List<Imagens> ResultImagens = LI.buscarImagens(codigo);		
 		
 		String valor = converteValores.valorParaReal(pacote.getValor()).replace("R$ ", "");
 		
-		request.setAttribute("diarias", pacote.getDiarias());
-		request.setAttribute("pais", lugar.getPais());
-		request.setAttribute("capital", lugar.getCapital());
-		request.setAttribute("cidade", lugar.getCidade());
-		request.setAttribute("detalhe", lugar.getDetalhe());
-		request.setAttribute("moeda", lugar.getMoeda());		
-		request.setAttribute("preco", valor);
-		request.setAttribute("codigo", codigo);
-		request.setAttribute("primera", ResultImagens.get(0).getImagem());
-		request.setAttribute("segunda", ResultImagens.get(1).getImagem());
-		request.setAttribute("terceira", ResultImagens.get(2).getImagem());
-		request.setAttribute("quarta", ResultImagens.get(3).getImagem());
-		
-		RequestDispatcher destino = request.getRequestDispatcher("pacotes.jsp");
-		destino.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	@SuppressWarnings("static-access")
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-					
-			doGet(request, response);
+		request.getSession().setAttribute("diarias", pacote.getDiarias());
+		request.getSession().setAttribute("pais", lugar.getPais());
+		request.getSession().setAttribute("capital", lugar.getCapital());
+		request.getSession().setAttribute("cidade", lugar.getCidade());
+		request.getSession().setAttribute("detalhe", lugar.getDetalhe());
+		request.getSession().setAttribute("moeda", lugar.getMoeda());
+		request.getSession().setAttribute("precoPacote", pacote.getValor());
+		request.getSession().setAttribute("preco", valor);
+		request.getSession().setAttribute("codigo", codigo);
+		request.getSession().setAttribute("primera", ResultImagens.get(0).getImagem());
+		request.getSession().setAttribute("segunda", ResultImagens.get(1).getImagem());
+		request.getSession().setAttribute("terceira", ResultImagens.get(2).getImagem());
+		request.getSession().setAttribute("quarta", ResultImagens.get(3).getImagem());
+		response.sendRedirect("pacotes.jsp");
+		doGet(request, response);
 }//****************************Chave doPost*************************************************************
 		
 }
