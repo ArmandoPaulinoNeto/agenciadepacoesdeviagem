@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.isoftware.rotatour.controller.Controller;
 import br.com.isoftware.rotatour.domain.Acesso;
-import br.com.isoftware.rotatour.domain.CarregamententoIndex;
+import br.com.isoftware.rotatour.domain.Conteudo;
 import br.com.isoftware.rotatour.domain.Imagens;
 import br.com.isoftware.rotatour.domain.Lugares;
 import br.com.isoftware.rotatour.domain.Pacotes;
@@ -25,14 +25,14 @@ import br.com.isoftware.rotatour.util.ConverteValores;
 /**
  * Servlet implementation class cadastrocliente
  */
-@WebServlet("/CarregamentoIndex")
-public class CarregamentoIndex extends HttpServlet {
+@WebServlet("/ConteudoIndex")
+public class ConteudoIndex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CarregamentoIndex() {
+    public ConteudoIndex() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,8 +45,7 @@ public class CarregamentoIndex extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		Controller controller = new Controller();
-		List<CarregamententoIndex> conteudo = controller.buscarLugaresEpacotes();
-		System.out.println(conteudo.get(0).getImagem());
+		List<Conteudo> conteudo = controller.buscarLugaresEpacotes();
 		request.getSession().setAttribute("conteudo", conteudo);
 		response.sendRedirect("principal.jsp");
 	}

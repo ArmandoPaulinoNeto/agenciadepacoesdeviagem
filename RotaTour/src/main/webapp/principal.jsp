@@ -63,12 +63,12 @@ List<Pacotes> resultPacotes = LP.listar();
 	    <c:forEach items="${conteudo}" var="obj">
 	      <div class="swiper-slide">
 	         <div class="imgBx">
-	            <img src="imagens/lugares/<c:out value="${obj.getImagem()}"/>">
+	            <img src="imagens/lugares/<c:out value="${obj.getPrincipal()}"/>">
 	         </div>
 	         <div class="details">
 	            <h6><c:out value="${obj.getPais()}"/><br><span><c:out value="${obj.getCidade()}"/></span></h6>
 	            <h8>R$: <c:out value="${obj.getValor()}"/><br><span>por pessoas</span></h8></br>           
-	             <form class="mt-4" action="${pageContext.request.contextPath}/PacoteDAO?id=<c:out value="${obj.getId()}"/>" method="post">		                                             
+	             <form class="mt-4" action="${pageContext.request.contextPath}/ConteudoPacote?id=<c:out value="${obj.getId()}"/>" method="post">		                                             
 						<button class="btn btn-link btn-outline-light" type="submit">Mais detalhes</button>
 				 </form>
 	         </div>

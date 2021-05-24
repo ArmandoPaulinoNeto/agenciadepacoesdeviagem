@@ -8,6 +8,7 @@ import java.util.List;
 import br.com.isoftware.rotatour.controller.service.AcessoServico;
 import br.com.isoftware.rotatour.controller.service.AcompanhanteServico;
 import br.com.isoftware.rotatour.controller.service.CarregamententoIndexServico;
+import br.com.isoftware.rotatour.controller.service.CarregamententoPacoteServico;
 import br.com.isoftware.rotatour.controller.service.CartaoServico;
 import br.com.isoftware.rotatour.controller.service.ClienteServico;
 import br.com.isoftware.rotatour.controller.service.CompraServico;
@@ -17,7 +18,7 @@ import br.com.isoftware.rotatour.controller.service.ParcelamentoServico;
 import br.com.isoftware.rotatour.controller.service.ViagemServico;
 import br.com.isoftware.rotatour.controller.util.DateTrasform;
 import br.com.isoftware.rotatour.domain.Acompanhantes;
-import br.com.isoftware.rotatour.domain.CarregamententoIndex;
+import br.com.isoftware.rotatour.domain.Conteudo;
 import br.com.isoftware.rotatour.domain.Cartao;
 import br.com.isoftware.rotatour.domain.Clientes;
 import br.com.isoftware.rotatour.domain.Compra;
@@ -40,6 +41,7 @@ public class Controller {
 	AcompanhanteServico acompanhanteServico;
 	AcessoServico acessoServico;
 	CarregamententoIndexServico carregamententoIndexServico;
+	CarregamententoPacoteServico carregamententoPacoteServico;
 	public Controller() {
 		
 		clienteServico = new ClienteServico();
@@ -52,6 +54,7 @@ public class Controller {
 		cartaoServico = new CartaoServico();
 		acompanhanteServico = new AcompanhanteServico();
 		carregamententoIndexServico = new CarregamententoIndexServico();
+		carregamententoPacoteServico = new CarregamententoPacoteServico();
 	}
 	//********Cadastra Clientes****************
 	public Clientes cadastrarCliente(String cpf,String nome, String sexo, Date dataNacimento, String ddd, String contato, String logradouro, String numero, String bairro, String cidade, String cep, String uf, String email) {
@@ -66,9 +69,14 @@ public class Controller {
 		}		
 	}
 	//********busca Lugares e Pacotes por nome****************
-	public List<CarregamententoIndex> buscarLugaresEpacotes() {
+	public List<Conteudo> buscarLugaresEpacotes() {
 		
 		return carregamententoIndexServico.carregamententoIndex();
+	}
+	//********busca Lugares e Pacotes por nome****************
+	public Conteudo buscarPacotes(Long codigo) {
+		
+		return carregamententoPacoteServico.carregamententoPacote(codigo);
 	}
 	//********busca Cliente por nome****************
 	public List<Clientes> perquisarClientes(String nome) {

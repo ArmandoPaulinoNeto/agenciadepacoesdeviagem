@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-response.sendRedirect(request.getContextPath()+"/CarregamentoIndex");
+response.sendRedirect(request.getContextPath()+"/ConteudoIndex");
 %>
 <html lang="pt-br">
 <head>

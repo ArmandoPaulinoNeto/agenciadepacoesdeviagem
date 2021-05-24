@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.isoftware.rotatour.controller.Controller;
+import br.com.isoftware.rotatour.domain.Conteudo;
 import br.com.isoftware.rotatour.domain.Imagens;
 import br.com.isoftware.rotatour.domain.Lugares;
 import br.com.isoftware.rotatour.domain.Pacotes;
@@ -21,14 +23,14 @@ import br.com.isoftware.rotatour.util.ConverteValores;
 /**
  * Servlet implementation class cadastrocliente
  */
-@WebServlet("/PacoteDAO")
-public class PacoteDAO extends HttpServlet {
+@WebServlet("/ConteudoPacote")
+public class ConteudoPacote extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PacoteDAO() {
+    public ConteudoPacote() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,33 +48,24 @@ public class PacoteDAO extends HttpServlet {
 	 */
 	@SuppressWarnings("static-access")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ConverteValores converteValores = new ConverteValores();
+				
 		Long codigo = Long.parseLong(request.getParameter("id"));
-		System.out.println(codigo);
-		LugaresRepository lr = new LugaresRepository();
-		PacotesRepository lp = new PacotesRepository();
-		ImagensRepository li = new ImagensRepository();
+		Controller controller = new Controller();
+		Conteudo conteudo = controller.buscarPacotes(codigo);
 		
-		Lugares lugar = lr.buscar(codigo);
-		Pacotes pacote = lp.buscar(lugar.getId());
-		List<Imagens> ResultImagens = li.buscarImagens(codigo);		
-		
-		String valor = converteValores.valorParaReal(pacote.getValor()).replace("R$ ", "");
-		
-		request.getSession().setAttribute("diarias", pacote.getDiarias());
-		request.getSession().setAttribute("pais", lugar.getPais());
-		request.getSession().setAttribute("capital", lugar.getCapital());
-		request.getSession().setAttribute("cidade", lugar.getCidade());
-		request.getSession().setAttribute("detalhe", lugar.getDetalhe());
-		request.getSession().setAttribute("moeda", lugar.getMoeda());
-		request.getSession().setAttribute("precoPacote", pacote.getValor());
-		request.getSession().setAttribute("preco", valor);
+		request.getSession().setAttribute("diarias", conteudo.getDiarias());
+		request.getSession().setAttribute("pais", conteudo.getPais());
+		request.getSession().setAttribute("capital", conteudo.getCapital());
+		request.getSession().setAttribute("cidade", conteudo.getCidade());
+		request.getSession().setAttribute("detalhe", conteudo.getDetalhe());
+		request.getSession().setAttribute("moeda", conteudo.getMoeda());
+		request.getSession().setAttribute("precoPacote", conteudo.getValor());
+		request.getSession().setAttribute("preco", conteudo.getPreco());
 		request.getSession().setAttribute("codigo", codigo);
-		request.getSession().setAttribute("primera", ResultImagens.get(0).getImagem());
-		request.getSession().setAttribute("segunda", ResultImagens.get(1).getImagem());
-		request.getSession().setAttribute("terceira", ResultImagens.get(2).getImagem());
-		request.getSession().setAttribute("quarta", ResultImagens.get(3).getImagem());
+		request.getSession().setAttribute("primera", conteudo.getPrimeira());
+		request.getSession().setAttribute("segunda", conteudo.getSegunda());
+		request.getSession().setAttribute("terceira", conteudo.getTerceira());
+		request.getSession().setAttribute("quarta", conteudo.getQuarta());
 		response.sendRedirect("pacotes.jsp");
 		doGet(request, response);
 }//****************************Chave doPost*************************************************************
