@@ -5,10 +5,10 @@ import br.com.isoftware.rotatour.model.repository.CartaoRepository;
 
 public class CartaoServico implements ICartaoServico{
 
-	CartaoRepository clienteRepository = new CartaoRepository();
+	CartaoRepository cartaoRepository = new CartaoRepository();
 	
 	public void cadastrarCartao(Cartao cartao) {
 		
-		clienteRepository.salvar(cartao);	
+		cartaoRepository.salvar(cartao);	
 	}	
 }

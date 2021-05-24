@@ -49,14 +49,14 @@ public class PacoteDAO extends HttpServlet {
 		
 		ConverteValores converteValores = new ConverteValores();
 		Long codigo = Long.parseLong(request.getParameter("id"));
+		System.out.println(codigo);
+		LugaresRepository lr = new LugaresRepository();
+		PacotesRepository lp = new PacotesRepository();
+		ImagensRepository li = new ImagensRepository();
 		
-		LugaresRepository LR = new LugaresRepository();
-		PacotesRepository LP = new PacotesRepository();
-		ImagensRepository LI = new ImagensRepository();
-		
-		Lugares lugar = LR.buscar(codigo);
-		Pacotes pacote = LP.buscar(lugar.getId());
-		List<Imagens> ResultImagens = LI.buscarImagens(codigo);		
+		Lugares lugar = lr.buscar(codigo);
+		Pacotes pacote = lp.buscar(lugar.getId());
+		List<Imagens> ResultImagens = li.buscarImagens(codigo);		
 		
 		String valor = converteValores.valorParaReal(pacote.getValor()).replace("R$ ", "");
 		

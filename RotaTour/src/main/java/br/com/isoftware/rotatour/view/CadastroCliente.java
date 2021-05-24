@@ -37,7 +37,7 @@ public class CadastroCliente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 					
 			int quantidade = (int) request.getSession().getAttribute("quantidade");
-			System.out.println(quantidade);
+			
 			request.getSession().setAttribute("Nome", request.getParameter("txtNome"));
 			request.getSession().setAttribute("CPF", request.getParameter("txtCPF"));
 			request.getSession().setAttribute("Sexo", request.getParameter("sltSexo"));

@@ -76,6 +76,7 @@
 .swiper-slide .details{  
   box-sizing:border-box;
   padding:20px;
+  text-decoration: none;
 }
 .swiper-slide .details h6{  
   margin: 0px;
