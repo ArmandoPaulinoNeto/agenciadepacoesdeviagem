@@ -47,104 +47,104 @@ public class FinalizarCompra extends HttpServlet {
 	@SuppressWarnings("static-access")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-			Controller control = new Controller();
-			DateTrasform dataTransform = new DateTrasform();
-			ConverteValores converteValores;
-							
-			converteValores = new ConverteValores();
-			
-			int quantidade = (int) request.getSession().getAttribute("quantidade");
-			String saida = (String) request.getSession().getAttribute("saida");
-		
-			Pacotes pacote = (Pacotes) request.getSession().getAttribute("pacote");
-			String subtotal = (String) request.getSession().getAttribute("subtotal");
-			
-			String login = (String) request.getSession().getAttribute("Login");
-			String senha = (String) request.getSession().getAttribute("Senha");
-			
-			Acesso acesso = control.cadastrarAcesso(login, senha, new Short("0"));
-
-			String nome = (String) request.getSession().getAttribute("Nome");
-			String cpf = ((String) request.getSession().getAttribute("CPF")).replace(".", "").replace("-", "");
-			String sexo = (String) request.getSession().getAttribute("Sexo");
-			Date dataNacimento = dataTransform.converterStrigParaData((String) request.getSession().getAttribute("DataNascimento"));
-			String logradouro = (String) request.getSession().getAttribute("Logradouro");
-			String bairro = (String) request.getSession().getAttribute("Bairro");
-			String numero = (String) request.getSession().getAttribute("Numero");
-			String cidade = (String) request.getSession().getAttribute("Cidade");
-			String uf = (String) request.getSession().getAttribute("UF");
-			String cep = ((String) request.getSession().getAttribute("CEP")).replace("-", "");
-			String email = (String) request.getSession().getAttribute("Email");
-			String[] numeroCompleto = ((String) request.getSession().getAttribute("Contato")).replace("(", "").replace(")", "").replace("-", "").split(" ");
-			String ddd = numeroCompleto[0];
-			String contato = numeroCompleto[1];
-			
-			//CLIENTE
-			Clientes cliente = control.cadastrarCliente(cpf, nome, sexo, dataNacimento, ddd, contato, logradouro, numero, bairro, cidade, cep, uf, email);
-			
-			//ACOMPANHANTE
-			if(quantidade > 1) {
-				for (int i = 1; i < (quantidade-1); i++) {
-					
-					String acNome = (String) request.getSession().getAttribute("acNome"+String.valueOf(i));
-					String acDataNascimento = (String) request.getSession().getAttribute("acDataNascimento"+String.valueOf(i));
-					control.cadastrarAcompanhantes(cliente, acNome, dataTransform.converterStrigParaData(acDataNascimento));
-				}
-			}
-			
-			//VIAGEM
-			Viagem viagem = control.cadastrarViagem(pacote, cliente, saida, new Date());
-			
-			boolean selecionado = (boolean) request.getSession().getAttribute("selecionado");
-			
-			if(selecionado) {
-				
-				control.cadastrarOpcoes(viagem, dataTransform.converterStrigParaData((String)request.getSession().getAttribute("DataIda")));
-				control.cadastrarOpcoes(viagem, dataTransform.converterStrigParaData((String)request.getSession().getAttribute("DataIda1")));
-				control.cadastrarOpcoes(viagem, dataTransform.converterStrigParaData((String)request.getSession().getAttribute("DataIda2")));
-			}
+		Controller control = new Controller();
+		DateTrasform dataTransform = new DateTrasform();
+		ConverteValores converteValores;
 						
-			String numCartao = request.getParameter("inputNumero").replace(" ", "");
-			String nomeTitular = request.getParameter("inputNome");
-			String validade = request.getParameter("mes")+request.getParameter("year").substring(2);
-			String codSeguranca = request.getParameter("inputCCV");
-			String parcelas = request.getParameter("sltParcelas");				
-			String cpfTitular = request.getParameter("txtCPFtitular").replace(".", "").replace("-", "");
-			Date titularDataNacimento = dataTransform.converterStrigParaData(request.getParameter("txtDataNascimento"));
-			String[] numCompleto = ((String) request.getSession().getAttribute("Contato")).replace("(", "").replace(")", "").replace("-", "").split(" ");
-			String titularDDD = numCompleto[0];
-			String titularContato = numCompleto[1];
-			
-			//PAGAMENTO 
-			Pagamento pagamento = control.cadastrarPagamento(converteValores.valorParaBigDecimal(subtotal), new Date());
-			
-			if(!parcelas.equals("1")){
+		converteValores = new ConverteValores();
+		
+		int quantidade = (int) request.getSession().getAttribute("quantidade");
+		String saida = (String) request.getSession().getAttribute("saida");
+	
+		Pacotes pacote = (Pacotes) request.getSession().getAttribute("pacote");
+		String subtotal = (String) request.getSession().getAttribute("subtotal");
+		
+		String login = (String) request.getSession().getAttribute("Login");
+		String senha = (String) request.getSession().getAttribute("Senha");
+		
+		Acesso acesso = control.cadastrarAcesso(login, senha, new Short("0"));
+
+		String nome = (String) request.getSession().getAttribute("Nome");
+		String cpf = ((String) request.getSession().getAttribute("CPF")).replace(".", "").replace("-", "");
+		String sexo = (String) request.getSession().getAttribute("Sexo");
+		Date dataNacimento = dataTransform.converterStrigParaData((String) request.getSession().getAttribute("DataNascimento"));
+		String logradouro = (String) request.getSession().getAttribute("Logradouro");
+		String bairro = (String) request.getSession().getAttribute("Bairro");
+		String numero = (String) request.getSession().getAttribute("Numero");
+		String cidade = (String) request.getSession().getAttribute("Cidade");
+		String uf = (String) request.getSession().getAttribute("UF");
+		String cep = ((String) request.getSession().getAttribute("CEP")).replace("-", "");
+		String email = (String) request.getSession().getAttribute("Email");
+		String[] numeroCompleto = ((String) request.getSession().getAttribute("Contato")).replace("(", "").replace(")", "").replace("-", "").split(" ");
+		String ddd = numeroCompleto[0];
+		String contato = numeroCompleto[1];
+		
+		//CLIENTE
+		Clientes cliente = control.cadastrarCliente(cpf, nome, sexo, dataNacimento, ddd, contato, logradouro, numero, bairro, cidade, cep, uf, email);
+		
+		//ACOMPANHANTE
+		if(quantidade > 1) {
+			for (int i = 1; i < quantidade; i++) {
 				
-				BigDecimal parcela = converteValores.valorParcelaBigDecimal(subtotal, parcelas);
-				control.cadastrarParcelamento(pagamento, parcela, new Short(parcelas));
+				String acNome = (String) request.getSession().getAttribute("acNome"+String.valueOf(i));
+				String acDataNascimento = (String) request.getSession().getAttribute("acDataNascimento"+String.valueOf(i));
+				control.cadastrarAcompanhantes(cliente, acNome, dataTransform.converterStrigParaData(acDataNascimento));
 			}
-			
-			//COMPRA
-			control.cadastrarCompra(pagamento, viagem, acesso, new Short(String.valueOf(quantidade)), cupomFiscal(), converteValores.valorParaBigDecimal(subtotal), new Date());						
-			
-			//CARTÃO
-			if(validade.length() < 4){
-				
-				validade = "0"+validade;
-			}
-			control.cadastrarCartao(pagamento, numCartao, nomeTitular, validade, codSeguranca, cpfTitular, titularDataNacimento, titularDDD, titularContato);
-			
-			response.sendRedirect("index.jsp");
-			
-			doGet(request, response);
-		}//****************************Chave doPost*************************************************************
-		public String cupomFiscal() {
-			
-			String cupomfiscal = "";
-			Random gerador = new Random();
-			for (int i = 0; i < 25; i++) {
-				 cupomfiscal = cupomfiscal+String.valueOf(gerador.nextInt(9));
-			}
-			return cupomfiscal;
 		}
+		
+		//VIAGEM
+		Viagem viagem = control.cadastrarViagem(pacote, cliente, saida, new Date());
+		
+		boolean selecionado = (boolean) request.getSession().getAttribute("selecionado");
+		
+		if(selecionado) {
+			
+			control.cadastrarOpcoes(viagem, dataTransform.converterStrigParaData((String)request.getSession().getAttribute("DataIda")));
+			control.cadastrarOpcoes(viagem, dataTransform.converterStrigParaData((String)request.getSession().getAttribute("DataIda1")));
+			control.cadastrarOpcoes(viagem, dataTransform.converterStrigParaData((String)request.getSession().getAttribute("DataIda2")));
+		}
+					
+		String numCartao = request.getParameter("inputNumero").replace(" ", "");
+		String nomeTitular = request.getParameter("inputNome");
+		String validade = request.getParameter("mes")+request.getParameter("year").substring(2);
+		String codSeguranca = request.getParameter("inputCCV");
+		String parcelas = request.getParameter("sltParcelas");				
+		String cpfTitular = request.getParameter("txtCPFtitular").replace(".", "").replace("-", "");
+		Date titularDataNacimento = dataTransform.converterStrigParaData(request.getParameter("txtDataNascimento"));
+		String[] numCompleto = ((String) request.getSession().getAttribute("Contato")).replace("(", "").replace(")", "").replace("-", "").split(" ");
+		String titularDDD = numCompleto[0];
+		String titularContato = numCompleto[1];
+		
+		//PAGAMENTO 
+		Pagamento pagamento = control.cadastrarPagamento(converteValores.valorParaBigDecimal(subtotal), new Date());
+		
+		if(!parcelas.equals("1")){
+			
+			BigDecimal parcela = converteValores.valorParcelaBigDecimal(subtotal, parcelas);
+			control.cadastrarParcelamento(pagamento, parcela, new Short(parcelas));
+		}
+		
+		//COMPRA
+		control.cadastrarCompra(pagamento, viagem, acesso, new Short(String.valueOf(quantidade)), cupomFiscal(), converteValores.valorParaBigDecimal(subtotal), new Date());						
+		
+		//CARTÃO
+		if(validade.length() < 4){
+			
+			validade = "0"+validade;
+		}
+		control.cadastrarCartao(pagamento, numCartao, nomeTitular, validade, codSeguranca, cpfTitular, titularDataNacimento, titularDDD, titularContato);
+		
+		response.sendRedirect("index.jsp");
+		
+		doGet(request, response);
+	}//****************************Chave doPost*************************************************************
+	public String cupomFiscal() {
+		
+		String cupomfiscal = "";
+		Random gerador = new Random();
+		for (int i = 0; i < 25; i++) {
+			 cupomfiscal = cupomfiscal+String.valueOf(gerador.nextInt(9));
+		}
+		return cupomfiscal;
+	}
 }

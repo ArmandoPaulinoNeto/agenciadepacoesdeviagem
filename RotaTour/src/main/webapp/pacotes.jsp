@@ -161,7 +161,6 @@
               </div>
           </section>         
 <!--fim rodape_site-->
-
 <!--Link para as pasta com os Scripts-->         
   	<script src="js/jquery.js"></script>
     <script src="js/jquery.mask.min.js"></script>

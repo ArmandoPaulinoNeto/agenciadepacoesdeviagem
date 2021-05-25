@@ -3,12 +3,9 @@
 <%@page import="java.util.List"%>
 <%@page import="br.com.isoftware.rotatour.domain.Pacotes"%>
 <%@page import="br.com.isoftware.rotatour.domain.Lugares"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<%
-	int quantidade = (int) session.getAttribute("quantidade");
-%>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -60,20 +57,18 @@
               			<div class="col-sm-12 col-md-10 col-lg-8 text-center my-3">
                         <div class="linha mb-5"></div>
                         	  <form name="cadastroCliente" action="${pageContext.request.contextPath}/CadastroAcompanhante" method="post" onSubmit="return enviardados();">
-                                <div class="form-row"> <% 
-                       	    for(int i = 1; i < quantidade; i++){
-                       		       String nomes = "txtNome"+String.valueOf(i);//txtDataNascimento
-                       		       String datas = "txtDataNascimento"+String.valueOf(i);
-                      %>
+                                <div class="form-row"> 
+                                <c:forEach items="${campos}" var="obj">
+                       		       
                                 	<div class="form-group col-sm-7 ml-5">
                                        <label>Nome:</label>
-                                       <input class="form-control" name="<%=nomes%>" id="<%=nomes%>" placeholder="Digite seu nome completo">
+                                       <input class="form-control" name="${obj.getCampoNome()}" id="${obj.getCampoNome()}" placeholder="Digite seu nome completo">
                                 	</div>
                                 	<div class="form-group col-sm-3">
                                        <label>Data Nasc:</label>
-                                       <input class="dataNasc form-control" name="<%=datas%>" id="<%=datas%>">
+                                       <input class="dataNasc form-control" name="${obj.getCampoData()}" id="${obj.getCampoData()}">
                                 	</div>                    	
-                       <%   }%>
+                       			</c:forEach>
                                 </div>
                                 <div class="row justify-content-end mr-5"><button class="btn btn-outline-success mr-4 my-sm-4" type="submit">Enviar formulário</button></div>
                               </form>                        
@@ -101,16 +96,8 @@
     <script src="js/jquery.mask.min.js"></script>
 	<script src="js/popper.js"></script>
 	<script src="js/bootstrap.js"></script>    
-    <script><!--máscaras para Inputs-->
-        $('.cpf').mask('000.000.000-00');
-        $('.cnpj').mask('00.000.000/0000-00');
-        $('.contato').mask('(00) 00000-0000');
-        $('.cep').mask('00000-000');
-		$('.numero').mask('00000');		
+    <script><!--máscaras para Inputs-->        	
         $('.dataNasc').mask('00/00/0000');
-        $('.placaCarro').mask('AAA-0000');
-        $('.horasMinutos').mask('00:00');
-        $('.cartaoCredito').mask('0000 0000 0000 0000');
 	</script>
 	<!-- Alerta com Modal -->	
 	<div id="myModal" class="modal" tabindex="-1" role="dialog">
@@ -133,7 +120,7 @@
   <script type="text/javascript">
 		function enviardados(){
 			
-			var quantidade = <%=quantidade%>;
+			var quantidade = ${quantidade};
 			
 			if(quantidade > 1){		
 											
