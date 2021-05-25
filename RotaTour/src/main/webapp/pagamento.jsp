@@ -9,11 +9,6 @@
 <%@page import="br.com.isoftware.rotatour.domain.Lugares"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
-ConverteValores converteValores = new ConverteValores();
-String subtotal = (String) request.getSession().getAttribute("subtotal");
-String parcelas[] = converteValores.RetornaValoresParcelas(subtotal);
-%>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -166,18 +161,18 @@ String parcelas[] = converteValores.RetornaValoresParcelas(subtotal);
                          <div class="float-right form-group col-sm-4">
                             <label>N. de Parcelas:</label>
                             <select id="sltParcelas" name="sltParcelas">
-                                <option value="1">1 x <%=subtotal%></option>
-                                <option value="2">2 x <%=parcelas[0] %></option>
-                                <option value="3">3 x <%=parcelas[1] %></option>
-                                <option value="4">4 x <%=parcelas[2] %></option>
-                                <option value="5">5 x <%=parcelas[3] %></option>
-                                <option value="6">6 x <%=parcelas[4] %></option>
-                                <option value="7">7 x <%=parcelas[5] %></option>
-                                <option value="8">8 x <%=parcelas[6] %></option>
-                                <option value="9">9 x <%=parcelas[7] %></option>
-                                <option value="10">10 x <%=parcelas[8] %></option>
-                                <option value="11">11 x <%=parcelas[9] %></option>
-                                <option value="12">12 x <%=parcelas[10] %></option>
+                                <option value="1">1 x ${subtotal}</option>
+                                <option value="2">2 x ${parcelas[0]}</option>
+                                <option value="3">3 x ${parcelas[1]}</option>
+                                <option value="4">4 x ${parcelas[2]}</option>
+                                <option value="5">5 x ${parcelas[3]}</option>
+                                <option value="6">6 x ${parcelas[4]}</option>
+                                <option value="7">7 x ${parcelas[5]}</option>
+                                <option value="8">8 x ${parcelas[6]}</option>
+                                <option value="9">9 x ${parcelas[7]}</option>
+                                <option value="10">10 x ${parcelas[8]}</option>
+                                <option value="11">11 x ${parcelas[9]}</option>
+                                <option value="12">12 x ${parcelas[10]}</option>
                             </select>
                  			</div>
                  </div><!--form-row-->

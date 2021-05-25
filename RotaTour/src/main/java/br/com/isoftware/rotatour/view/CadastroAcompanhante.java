@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.isoftware.rotatour.util.ConverteValores;
+
 /**
  * Servlet implementation class cadastrocliente
  */
@@ -41,11 +43,12 @@ public class CadastroAcompanhante extends HttpServlet {
 				
 				request.getSession().setAttribute("acNome"+String.valueOf(i), request.getParameter("txtNome"+String.valueOf(i)));
 				request.getSession().setAttribute("acDataNascimento"+String.valueOf(i), request.getParameter("txtDataNascimento"+String.valueOf(i)));							
-			}						
-	
-			request.getSession().setAttribute("mensagem", "Cadastros realizados com sucesso!");
-			request.getSession().setAttribute("pagina", "acompanhantes");
-			 
+			}
+			
+			ConverteValores converteValores = new ConverteValores();
+			String subtotal = (String) request.getSession().getAttribute("subtotal");
+			String parcelas[] = converteValores.RetornaValoresParcelas(subtotal);
+			request.getSession().setAttribute("parcelas", parcelas);
 			response.sendRedirect("pagamento.jsp");
 			
 			doGet(request, response);

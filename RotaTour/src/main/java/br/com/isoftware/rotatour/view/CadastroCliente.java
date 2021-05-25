@@ -2,14 +2,13 @@ package br.com.isoftware.rotatour.view;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import br.com.isoftware.rotatour.domain.CamposAcompanhante;
+import br.com.isoftware.rotatour.util.ConverteValores;
 
 /**
  * Servlet implementation class cadastrocliente
@@ -73,7 +72,11 @@ public class CadastroCliente extends HttpServlet {
 			response.sendRedirect("cadastrosacompanhante.jsp");
 		}else{
 			
-			response.sendRedirect("pagamento.jsp");
+			ConverteValores converteValores = new ConverteValores();
+			String subtotal = (String) request.getSession().getAttribute("subtotal");
+			String parcelas[] = converteValores.RetornaValoresParcelas(subtotal);
+			request.getSession().setAttribute("parcelas", parcelas);
+			response.sendRedirect("pagamento.jsp");			
 		}
 		doGet(request, response);
 	}
