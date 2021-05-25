@@ -11,8 +11,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
+<head>    
     <title>Rota Tour</title>   
     <link href="bootstrap/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="bootstrap/swiper.min.css" rel="stylesheet" type="text/css">    
@@ -97,7 +96,7 @@
 												    <h5 class="card-title">Garanta seu pacote já!</h5>
 												    <div class="row ml-3"><b>De:</b><p class="card-text">&nbsp;01/abr/2021</p></div>
 												    <div class="row justify-content-end mr-5"><b>Ate:</b><p class="card-text">&nbsp;01/nov/2021</p></div>
-                                                    <form action="${pageContext.request.contextPath}/CompraDAO?id=${codigo}" method="post">
+                                                    <form action="${pageContext.request.contextPath}/ConteudoCompra?id=${codigo}" method="post">
                                                     	<div class="row my-3">
 		                                                    	<div class="ml-3 my-1"><p class="vlr"><b>Pessoas: </b></p></div>
 		                                                    	<div class="ml-2 my-1">
@@ -134,11 +133,11 @@
 				                                        </div>
 													<div>
 		                                                  <div class="row">
-		                                                  		<div class="my-5 ml-3 mr-3"><b>R$:</b></div><div class="row my-2"><p class="display-4 btn-outline-warning" id="preco">${preco}</p></div>
+		                                                  		<div class="my-5 ml-3 mr-3"><b>R$:</b></div><div class="row my-2"><p class="display-4 btn-outline-warning" id="valor">${preco}</p></div>
 		                                                  </div>
 		                                             </div>
 		                                             
-		                                             <div class="row justify-content-end mr-2"><button class="btn btn-outline-success" type="submit">Comprar</button></div><!--onClick="parent.location.href='compras.jsp?id=1&quantidade=1'"-->
+		                                             <div class="row justify-content-end mr-2"><button class="btn btn-outline-success" type="submit">Comprar</button></div>
                                                            </form>
 												  </div>
 											</div>
@@ -174,18 +173,9 @@
    			
    			var select = document.getElementById('quantidade');
 			var option = select.options[select.selectedIndex];			
-			var valor = (parseInt(${preco})*parseInt(option.value));
-			//var preco = valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+			var valor = (${precoPacote}*parseInt(option.value));			
 			var preco = valor.toLocaleString('pt-br', {minimumFractionDigits: 2});
-			document.getElementById('preco').innerHTML = preco;  									
-		}
-    </script>
-    <script type="text/javascript">
-   		function passoaValor(){
-   			
-   			var select = document.getElementById('quantidade');
-			var option = select.options[select.selectedIndex];			
-			return option.value; 									
+			document.getElementById('valor').innerHTML = preco;  									
 		}
     </script>
  </html>

@@ -22,14 +22,14 @@ import br.com.isoftware.rotatour.util.ConverteValores;
 /**
  * Servlet implementation class cadastrocliente
  */
-@WebServlet("/CompraDAO")
-public class CompraDAO extends HttpServlet {
+@WebServlet("/ConteudoCompra")
+public class ConteudoCompra extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CompraDAO() {
+    public ConteudoCompra() {
         super();
         // TODO Auto-generated constructor stub
     }

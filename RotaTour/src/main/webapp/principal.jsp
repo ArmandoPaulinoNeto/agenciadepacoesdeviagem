@@ -6,17 +6,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<%
-Lugares lugares = new Lugares();
-Pacotes pacote = new Pacotes();
-LugaresRepository LR = new LugaresRepository();
-PacotesRepository LP = new PacotesRepository();
-List<Lugares> resultLugares = LR.listar();
-List<Pacotes> resultPacotes = LP.listar();
-%>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
+<head>   
     <title>Rota Tour</title>   
     <link href="bootstrap/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="bootstrap/swiper.min.css" rel="stylesheet" type="text/css">

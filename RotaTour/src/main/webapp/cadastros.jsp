@@ -6,27 +6,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%/*
-String mensagem = (String) session.getAttribute("mansagem");
-String pagina = (String) session.getAttribute("pagina");
-//String saida = (String) session.getAttribute("saida");
-int quantidade = (int) session.getAttribute("quantidade");
-System.out.println(pagina);
-
-if(pagina.equals("compras")){
-	
-	session.setAttribute("pagina", "cadastros");
-}else{
-	   if(mensagem.contains("sucesso")){
-			if(quantidade > 1){
-				response.sendRedirect("cadastrosacompanhante.jsp");
-			}else{
-				
-				response.sendRedirect("pagamento.jsp");
-			}
-	   }
-}*/
-%>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -270,14 +249,23 @@ if(pagina.equals("compras")){
 				document.cadastroCliente.txtUF.focus();
 				return false;
 			}
-			if(document.cadastroCliente.txtEmail.value.length < 12 || document.cadastroCliente.txtEmail.value.indexOf('@') == -1 || document.cadastroCliente.txtEmail.value.indexOf('.') == -1){
-				
-				document.getElementById('mensagem').innerHTML = "Preencha campo Email corretamente!";
+			if (document.cadastroCliente.txtEmail.value == "" || document.cadastroCliente.txtEmail.value.length < 5  || document.cadastroCliente.txtEmail.value.indexOf("@") == -1 || document.cadastroCliente.txtEmail.value.indexOf(".") == -1){
+				document.getElementById('mensagem').innerHTML = "Preencha o campo Login corretamente!";
 				$("#myModal").modal({show: true});
-				document.cadatroCartao.txtEmail.focus();
+				document.cadastroCliente.txtEmail.focus();
 				return false;
 			}
-			return true;
+				return true;		
 		}		  
+	</script>
+	<script>
+		$('#myModal').on('shown.bs.modal', function() {
+	
+		    var $me = $(this);
+	
+		    $me.delay(3000).hide(0, function() {
+		        $me.modal('hide');
+		    });
+		});
 	</script>
  </html>

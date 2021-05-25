@@ -288,7 +288,7 @@
 							return false;
 					}	
 			}
-			if (document.cadatroCartao.txtLogin.value == "" || document.cadatroCartao.txtLogin.value.length < 5){
+			if (document.cadatroCartao.txtLogin.value == "" || document.cadatroCartao.txtLogin.value.length < 5 || document.cadatroCartao.txtLogin.value.indexOf("@") == -1 || document.cadatroCartao.txtLogin.value.indexOf(".") == -1){
 				document.getElementById('mensagem').innerHTML = "Preencha o campo Login corretamente!";
 				$("#myModal").modal({
 			   		 show: true
