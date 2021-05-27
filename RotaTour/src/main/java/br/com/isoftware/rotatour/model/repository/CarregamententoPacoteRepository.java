@@ -37,7 +37,8 @@ public class CarregamententoPacoteRepository {
 		conteudo.setPrimeira(ResultImagens.get(0).getImagem());;
 		conteudo.setSegunda(ResultImagens.get(1).getImagem());
 		conteudo.setTerceira(ResultImagens.get(2).getImagem());
-		conteudo.setQuarta(ResultImagens.get(3).getImagem());		
+		conteudo.setQuarta(ResultImagens.get(3).getImagem());
+		conteudo.setPacote(pacote);
 		
 		return conteudo;
 	}

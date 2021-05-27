@@ -39,7 +39,7 @@ public class CadastroAcompanhante extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 			int quantidade = (int) request.getSession().getAttribute("quantidade");
-			for (int i = 1; i < (quantidade-1); i++) {
+			for (int i = 1; i < quantidade; i++) {
 				
 				request.getSession().setAttribute("acNome"+String.valueOf(i), request.getParameter("txtNome"+String.valueOf(i)));
 				request.getSession().setAttribute("acDataNascimento"+String.valueOf(i), request.getParameter("txtDataNascimento"+String.valueOf(i)));							

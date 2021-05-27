@@ -133,9 +133,7 @@
 	<script>
     	$(document).on('click','.navbar-nav li a', function(){
 	    	var tab = $(this).data('tab');
-	    	if(tab == "acesso"){
-				<%session.setAttribute("pagina", "index");%>
-	    	
+	    	if(tab == "acesso"){    	
 				$('#loginModal').modal('show');
 	    	}
   		});

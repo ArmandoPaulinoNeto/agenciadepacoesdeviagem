@@ -66,6 +66,7 @@ public class ConteudoPacote extends HttpServlet {
 		request.getSession().setAttribute("segunda", conteudo.getSegunda());
 		request.getSession().setAttribute("terceira", conteudo.getTerceira());
 		request.getSession().setAttribute("quarta", conteudo.getQuarta());
+		request.getSession().setAttribute("pacote", conteudo.getPacote());
 		response.sendRedirect("pacotes.jsp");
 		doGet(request, response);
 }//****************************Chave doPost*************************************************************

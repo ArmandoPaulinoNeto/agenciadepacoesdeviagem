@@ -2,6 +2,7 @@ const cartao = document.querySelector('#cartao'),
 	  btnAbrirFormulario = document.querySelector('#btn-abrir-formulario'),
 	  formulario = document.querySelector('#formulario-cartao'),
 	  numeroCartao = document.querySelector('#cartao .numero'),
+	  cpfTitutular = document.querySelector('#cartao .inputNumero'),
 	  nomeCartao = document.querySelector('#cartao .nombre'),
 	  logoMarca = document.querySelector('#logo-marca'),
 	  firma = document.querySelector('#cartao .firma p'),
@@ -51,7 +52,6 @@ formulario.inputNumero.addEventListener('keyup', (e) => {
 		numeroCartao.textContent = '0000 0000 0000 0000';
 		logoMarca.innerHTML = '';
 	}
-	
 	if(valorInput.length > 18){
 		
 		var bandeira = (ReturnFlag.getCardFlag(valorInput));
@@ -68,6 +68,47 @@ formulario.inputNumero.addEventListener('keyup', (e) => {
 	mostrarFrente();
 });
 
+formulario.inputCPF.addEventListener('keyup', (e) => {
+	
+	let valorInput = e.target.value;
+	
+	if(formulario.inputCPF.value.length < 10){
+		formulario.inputCPF.value = valorInput.replace(/\s/g, '').replace(/\D/g, '').replace(/([0-9]{3})/g, '$1.').trim();
+	}else{
+		var cpf = valorInput.replace(/\s/g, '').replace(/\D/g, '').replace(/([0-9]{3})/g, '$1-').trim();		
+		var anterior = cpf.substring(0, 10);
+		var nova = anterior.replaceAll("-", ".");
+		formulario.inputCPF.value = cpf.replace(anterior, nova);
+	}	
+	mostrarFrente();
+});
+formulario.inputData.addEventListener('keyup', (e) => {
+	
+	let valorInput = e.target.value;
+	
+	if(formulario.inputData.value.length < 8){
+		formulario.inputData.value = valorInput.replace(/\s/g, '').replace(/\D/g, '').replace(/([0-9]{2})/g, '$1/').trim();
+	}else{
+		var dataNasc = valorInput.replace(/\s/g, '').replace(/\D/g, '').replace(/([0-9]{2})/g, '$1/').trim();		
+		var anterior = dataNasc.substring(0, 7);
+		var nova = dataNasc.replace(anterior, anterior.replaceAll("/", "-"));
+		formulario.inputData.value = nova.anterior.replaceAll("/", "").replaceAll("-", "/");
+	}	
+	mostrarFrente();
+});
+formulario.inputContato.addEventListener('keyup', (e) => {
+	
+	let valorInput = e.target.value;
+	
+	if(formulario.inputContato.value.length < 6){
+		formulario.inputContato.value = valorInput.replace(/\s/g, '').replace(/\D/g, '').replace(/([0-9]{2})/g, '($1) ').trim();
+	}else{
+		var prefixo = valorInput.substring(0, 5);
+		var contato = valorInput.replace(prefixo, '').replace(/\s/g, '').replace(/\D/g, '').replace(/([0-9]{4})/g, '$1-').trim();		
+		formulario.inputContato.value = prefixo+(contato+"@").replace('-@', '').replace('@', '');
+	}	
+	mostrarFrente();
+});
 formulario.inputNome.addEventListener('keyup', (e) => {
 	let valorInput = e.target.value;
 
@@ -123,8 +164,7 @@ var ReturnFlag = {
 	            if(cards[flag].test(cardnumber)) {
 	                return flag+'.png';
 	            }
-	        }       
-
+	        }
 	        return '';
 	    }
 	}

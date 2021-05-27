@@ -109,8 +109,8 @@ public class FinalizarCompra extends HttpServlet {
 		String validade = request.getParameter("mes")+request.getParameter("year").substring(2);
 		String codSeguranca = request.getParameter("inputCCV");
 		String parcelas = request.getParameter("sltParcelas");				
-		String cpfTitular = request.getParameter("txtCPFtitular").replace(".", "").replace("-", "");
-		Date titularDataNacimento = dataTransform.converterStrigParaData(request.getParameter("txtDataNascimento"));
+		String cpfTitular = request.getParameter("inputCPF").replace(".", "").replace("-", "");
+		Date titularDataNacimento = dataTransform.converterStrigParaData(request.getParameter("inputData"));
 		String[] numCompleto = ((String) request.getSession().getAttribute("Contato")).replace("(", "").replace(")", "").replace("-", "").split(" ");
 		String titularDDD = numCompleto[0];
 		String titularContato = numCompleto[1];

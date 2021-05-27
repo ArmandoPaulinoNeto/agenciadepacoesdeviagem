@@ -113,7 +113,9 @@
                                            <input class="form-control" name="txtEmail" id="txtEmail" maxlength="40">
                                      </div>                                   
                                 </div>
-                                <div class="row justify-content-end mr-2"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Enviar formulário</button></div>
+                                <div class="row justify-content-end mr-2">
+                                	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Enviar formulário</button>
+                               	</div>
                               </form>                        
                         </div>
               		</div>                       	

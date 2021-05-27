@@ -6,28 +6,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
-/*
-String mensagem = (String) session.getAttribute("mensagem");
-String pagina = (String) session.getAttribute("pagina");
-String saida = (String) session.getAttribute("saida");
-int quantidade = (int) session.getAttribute("quantidade");
-if(pagina.equals("compras")){
-	
-	session.setAttribute("pagina", "cadastros");
-}else{
-	   if(mensagem.contains("sucesso")){
-		   
-		  	quantidade = (int) request.getSession().getAttribute("quantidade");
-			if(quantidade > 1){
-				response.sendRedirect("cadastrosacompanhante.jsp");
-			}else{
-				
-				response.sendRedirect("index.jsp");
-			}
-	   }
-}*/
-%>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">

@@ -18,7 +18,7 @@ public class Conteudo {
 	private String terceira;
 	private String quarta;
 	private BigDecimal valor;
-
+	private Pacotes pacote;
 	public Long getId() {
 		return id;
 	}
@@ -183,6 +183,18 @@ public class Conteudo {
 	 */
 	public void setQuarta(String quarta) {
 		this.quarta = quarta;
+	}
+	/**
+	 * @return the pacote
+	 */
+	public Pacotes getPacote() {
+		return pacote;
+	}
+	/**
+	 * @param pacote the pacote to set
+	 */
+	public void setPacote(Pacotes pacote) {
+		this.pacote = pacote;
 	}
 	
 }

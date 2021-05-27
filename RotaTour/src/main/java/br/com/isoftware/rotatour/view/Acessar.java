@@ -43,13 +43,13 @@ public class Acessar extends HttpServlet {
 					    
 			String login = request.getParameter("txtLogin");
 			String senha = request.getParameter("txtSenha");
-			//Short tipoAcesso = new Short((String) request.getSession().getAttribute("tipoAcesso"));
+			
 			boolean logar = false;
 			AcessoRepository repository = new AcessoRepository();
 			
-			List<Acesso> acessoLisata = repository.listar();
+			List<Acesso> acessoLista = repository.listar();
 			
-			for (Acesso acesso : acessoLisata) {
+			for (Acesso acesso : acessoLista) {
 				
 				if((login.equals(acesso.getLogin())) && (senha.equals(acesso.getSenha()))){
 					
@@ -63,8 +63,7 @@ public class Acessar extends HttpServlet {
 			 }else {
 				 
 				 response.sendRedirect("index.jsp");
-			 }	
-
+			 }
 			doGet(request, response);
 		}//****************************Chave doPost*************************************************************
 		
