@@ -179,7 +179,7 @@
 					return false;
 			}			  
 			  
-			if(document.cadastroCliente.txtCPF.value.length < 14){
+			if(document.cadastroCliente.txtCPF.value.length < 14 || validarCPF(document.cadastroCliente.txtCPF.value)){
 				    
 					document.getElementById('mensagem').innerHTML = "Preencha campo CPF corretamente!";
 					$("#myModal").modal({show: true});
@@ -187,7 +187,7 @@
 					return false;
 			}
 			  
-			if (document.cadastroCliente.txtDataNascimento.value.length < 10){
+			if (document.cadastroCliente.txtDataNascimento.value.length < 10 || validaDat(document.cadastroCliente.txtDataNascimento, document.cadastroCliente.txtDataNascimento.value)){
 				
 					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento corretamente!";
 					$("#myModal").modal({show: true});
@@ -259,6 +259,79 @@
 			}
 				return true;		
 		}		  
+	</script>
+	<script>
+		function validarCPF(strCPF) {
+			
+			strCPF = strCPF.replace(/[^0-9]/g, '')
+		    var  Soma = 0;
+		    var Resto;
+		   
+			if (strCPF == ""){				
+				$("#txtCPF").addClass("is-invalid");
+				return true;
+			}			  
+		  	for (i=1; i<=9; i++){
+		  		Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+		  	}
+		  	
+		 	Resto = (Soma * 10) % 11;
+		
+		    if ((Resto == 10) || (Resto == 11)){
+		    	Resto = 0;
+		    }				
+		    if (Resto != parseInt(strCPF.substring(9, 10))){
+		    	$("#txtCPF").addClass("is-invalid");
+		    	return true;
+		    }
+		    
+		  	Soma = 0;
+		  	
+		    for (i = 1; i <= 10; i++){
+		    	Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+		    }
+				
+		    Resto = (Soma * 10) % 11;		
+		    if ((Resto == 10) || (Resto == 11)){
+		    	Resto = 0;
+		    }				
+		    if (Resto != parseInt(strCPF.substring(10, 11) )){
+		    	$("#txtCPF").addClass("is-invalid");
+		    	return true;
+		    }
+		    $("#txtCPF").removeClass("is-invalid");
+		    $("#txtCPF").addClass("is-valid");
+		    return false;
+		}
+	</script>
+	<script>
+		function validaDat(campo,valor) {
+			var date=valor;
+			var ardt=new Array;
+			var ExpReg=new RegExp("(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}");
+			ardt=date.split("/");
+			erro=false;
+			if ( date.search(ExpReg)==-1){
+				erro = true;
+				}
+			else if (((ardt[1]==4)||(ardt[1]==6)||(ardt[1]==9)||(ardt[1]==11))&&(ardt[0]>30))
+				erro = true;
+			else if ( ardt[1]==2) {
+				if ((ardt[0]>28)&&((ardt[2]%4)!=0))
+					erro = true;
+				if ((ardt[0]>29)&&((ardt[2]%4)==0))
+					erro = true;
+			}
+			if (erro) {		
+				campo.focus();
+				campo.value = "";
+				$(campo).addClass("is-invalid");
+				return true;
+			}
+			$(campo).removeClass("is-invalid");
+			$(campo).addClass("is-valid");
+			return false;
+		}
 	</script>
 	<script>
 		$('#myModal').on('shown.bs.modal', function() {

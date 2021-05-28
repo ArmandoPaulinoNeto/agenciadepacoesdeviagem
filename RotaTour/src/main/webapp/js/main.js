@@ -27,8 +27,12 @@ btnAbrirFormulario.addEventListener('click', () => {
 
 for(let i = 1; i <= 12; i++){
 	let opcion = document.createElement('option');
-	opcion.value = i;
-	opcion.innerText = i;
+	var mes = i;
+	if(i < 10){
+		mes = '0'+mes
+	}
+	opcion.value = mes;
+	opcion.innerText = mes;
 	formulario.selectMes.appendChild(opcion);
 }
 
@@ -168,4 +172,99 @@ var ReturnFlag = {
 	        return '';
 	    }
 	}
+function enviardados() {
+	
+	if(formulario.inputNumero.value.length < 19){		
+		return false;
+	}
+	if(formulario.inputNome.value == ''){
+		return false;
+	}
+	if(formulario.mes.value.length > 2){
+		return false;
+	}
+	if(formulario.year.value.length < 4){
+		return false;
+	}
+	if(formulario.inputCCV.value.length < 3){
+		return false;
+	}
+	if(formulario.inputCPF.value.length < 14 || validarCPF(formulario.inputCPF.value)){
+		return false;
+	}
+	if(formulario.inputData.value.length < 10 || validaDat(formulario.inputData, formulario.inputData.value)){
+		return false;
+	}	
+	if(formulario.inputContato.value.length < 14){
+		return false;
+	}
+	return true;
+}
 
+function validarCPF(strCPF) {
+	
+	strCPF = strCPF.replace(/[^0-9]/g, '')
+    var  Soma = 0;
+    var Resto;
+   
+	if (strCPF == ""){				
+		//$("#inputCPF").addClass("is-invalid");
+		return true;
+	}			  
+  	for (i=1; i<=9; i++){
+  		Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+  	}
+  	
+ 	Resto = (Soma * 10) % 11;
+
+    if ((Resto == 10) || (Resto == 11)){
+    	Resto = 0;
+    }				
+    if (Resto != parseInt(strCPF.substring(9, 10))){
+    	//$("#inputCPF").addClass("is-invalid");
+    	return true;
+    }
+    
+  	Soma = 0;
+  	
+    for (i = 1; i <= 10; i++){
+    	Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+    }
+		
+    Resto = (Soma * 10) % 11;		
+    if ((Resto == 10) || (Resto == 11)){
+    	Resto = 0;
+    }				
+    if (Resto != parseInt(strCPF.substring(10, 11) )){
+    	//$("#inputCPF").addClass("is-invalid");
+    	return true;
+    }
+    //$("#inputCPF").removeClass("is-invalid");
+    //$("#inputCPF").addClass("is-valid");
+    return false;
+}	
+
+function validaDat(campo,valor) {
+	var date=valor;
+	var ardt=new Array;
+	var ExpReg=new RegExp("(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}");
+	ardt=date.split("/");
+	erro=false;
+	if ( date.search(ExpReg)==-1){
+		erro = true;
+		}
+	else if (((ardt[1]==4)||(ardt[1]==6)||(ardt[1]==9)||(ardt[1]==11))&&(ardt[0]>30))
+		erro = true;
+	else if ( ardt[1]==2) {
+		if ((ardt[0]>28)&&((ardt[2]%4)!=0))
+			erro = true;
+		if ((ardt[0]>29)&&((ardt[2]%4)==0))
+			erro = true;
+	}
+	if (erro) {		
+		campo.focus();
+		campo.value = "";
+		return true;
+	}
+	return false;
+}

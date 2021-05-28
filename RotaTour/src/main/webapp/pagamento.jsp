@@ -107,7 +107,7 @@
 		</div>
 
 		<!-- Formulario -->		
-		<form action="${pageContext.request.contextPath}/FinalizarCompra" method="post" id="formulario-cartao" class="formulario-cartao">
+		<form action="${pageContext.request.contextPath}/FinalizarCompra" method="post" id="formulario-cartao" class="formulario-cartao" onSubmit="return enviardados();">
 			<div class="grupo">
 				<label for="inputNumero">Número do cartão</label>
 				<input type="text" name="inputNumero" id="inputNumero" maxlength="19" autocomplete="off">
@@ -197,5 +197,23 @@
               </div>
           </section>         
 <!--fim rodape_site-->
+<!-- Alerta com Modal -->	
+	<div id="myModal" class="modal" tabindex="-1" role="dialog">
+ 		 <div class="modal-dialog" role="document">
+    	 <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Rota Tour - Compras</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <div class="modal-body">
+               <p id="mensagem"></p>
+         </div>
+         <div class="modal-footer">              
+         </div>
+       </div>
+  </div>
+</div>
 </body>
  </html>

@@ -134,7 +134,7 @@
                                                             </div>
                                                             <div class="form-group col-sm-4">
                                                                     <label>Senha:</label>
-                                                                    <input class="form-control" type="text" name="txtSenha" id="txtSenha">
+                                                                    <input class="form-control" type="password" name="txtSenha" id="txtSenha">
                                                             </div>
                                                          </div>                                                        
                                      					<div class="linha"></div>                                                        
@@ -264,13 +264,13 @@
 			
 			if (!document.cadatroCartao.txtDataIda.disabled){				
 				
-					if (document.cadatroCartao.txtDataIda.value.length < 10){
+					if (document.cadatroCartao.txtDataIda.value.length < 10 || validaDat(document.cadatroCartao.txtDataIda, document.cadatroCartao.txtDataIda.value)){
 						
 							document.getElementById('mensagem').innerHTML = "Preencha o campo Data da ida (opção 1) corretamente!";
 							$("#myModal").modal({show: true});
 							document.cadatroCartao.txtDataIda.focus();
 							return false;
-					}if(document.cadatroCartao.txtDataIda1.value.length < 10 ){
+					}if(document.cadatroCartao.txtDataIda1.value.length < 10 || validaDat(document.cadatroCartao.txtDataIda1, document.cadatroCartao.txtDataIda1.value)){
 						
 							document.getElementById('mensagem').innerHTML = "Preencha o campo Data da ida (opção 2) corretamente!";
 							$("#myModal").modal({
@@ -278,7 +278,7 @@
 						    });
 							document.cadatroCartao.txtDataIda1.focus();
 							return false;
-					}if(document.cadatroCartao.txtDataIda2.value.length < 10){
+					}if(document.cadatroCartao.txtDataIda2.value.length < 10 || validaDat(document.cadatroCartao.txtDataIda2, document.cadatroCartao.txtDataIda2.value)){
 						
 						    document.getElementById('mensagem').innerHTML = "Preencha o campo Data da ida (opção 3) corretamente!";
 						    $("#myModal").modal({
@@ -306,7 +306,36 @@
 			}			
 			return true;
 		}		  
-	</script>	
+	</script>
+	<script>
+		function validaDat(campo,valor) {
+			var date=valor;
+			var ardt=new Array;
+			var ExpReg=new RegExp("(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}");
+			ardt=date.split("/");
+			erro=false;
+			if ( date.search(ExpReg)==-1){
+				erro = true;
+				}
+			else if (((ardt[1]==4)||(ardt[1]==6)||(ardt[1]==9)||(ardt[1]==11))&&(ardt[0]>30))
+				erro = true;
+			else if ( ardt[1]==2) {
+				if ((ardt[0]>28)&&((ardt[2]%4)!=0))
+					erro = true;
+				if ((ardt[0]>29)&&((ardt[2]%4)==0))
+					erro = true;
+			}
+			if (erro) {		
+				campo.focus();
+				campo.value = "";
+				$(campo).addClass("is-invalid");
+				return true;
+			}
+			$(campo).removeClass("is-invalid");
+			$(campo).addClass("is-valid");
+			return false;
+		}
+	</script>
 	<script>
 		$('#myModal').on('shown.bs.modal', function() {
 	

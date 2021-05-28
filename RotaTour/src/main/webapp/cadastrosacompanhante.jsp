@@ -130,95 +130,14 @@
 						document.cadastroCliente.txtNome1.focus();
 						return false;
 					}
-					if(document.cadastroCliente.txtDataNascimento1.value.length < 10){
+					if(document.cadastroCliente.txtDataNascimento1.value.length < 10 || validaDat(document.cadastroCliente.txtDataNascimento1, document.cadastroCliente.txtDataNascimento1.value)){
 						
 						document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!";
 						$("#myModal").modal({show: true});
 						document.cadastroCliente.txtDataNascimento1.focus();
 						return false;
 					}
-			}
-			if(quantidade > 1){		
-								
-				if(document.cadastroCliente.txtNome1.value.length < 15){
-					document.getElementById('mensagem').innerHTML = "Preencha o campo Nome do Acompanhante corretamente!";
-					$("#myModal").modal({show: true});
-					document.cadastroCliente.txtNome1.focus();
-					return false;
-				}
-				if(document.cadastroCliente.txtDataNascimento1.value.length < 10){
-					
-					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!";
-					$("#myModal").modal({show: true});
-					document.cadastroCliente.txtDataNascimento1.focus();
-					return false;
-				}
-			}
-			if(quantidade > 1){		
-								
-				if(document.cadastroCliente.txtNome1.value.length < 15){
-					document.getElementById('mensagem').innerHTML = "Preencha o campo Nome do Acompanhante corretamente!";
-					$("#myModal").modal({show: true});
-					document.cadastroCliente.txtNome1.focus();
-					return false;
-				}
-				if(document.cadastroCliente.txtDataNascimento1.value.length < 10){
-					
-					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!";
-					$("#myModal").modal({show: true});
-					document.cadastroCliente.txtDataNascimento1.focus();
-					return false;
-				}
-			}
-
-			if(quantidade > 1){		
-								
-				if(document.cadastroCliente.txtNome1.value.length < 15){
-					document.getElementById('mensagem').innerHTML = "Preencha o campo Nome do Acompanhante corretamente!";
-					$("#myModal").modal({show: true});
-					document.cadastroCliente.txtNome1.focus();
-					return false;
-				}
-				if(document.cadastroCliente.txtDataNascimento1.value.length < 10){
-					
-					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!";
-					$("#myModal").modal({show: true});
-					document.cadastroCliente.txtDataNascimento1.focus();
-					return false;
-				}
-			}
-			if(quantidade > 1){		
-								
-				if(document.cadastroCliente.txtNome1.value.length < 15){
-					document.getElementById('mensagem').innerHTML = "Preencha o campo Nome do Acompanhante corretamente!";
-					$("#myModal").modal({show: true});
-					document.cadastroCliente.txtNome1.focus();
-					return false;
-				}
-				if(document.cadastroCliente.txtDataNascimento1.value.length < 10){
-					
-					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!";
-					$("#myModal").modal({show: true});
-					document.cadastroCliente.txtDataNascimento1.focus();
-					return false;
-				}
-			}
-			if(quantidade > 1){		
-								
-				if(document.cadastroCliente.txtNome1.value.length < 15){
-					document.getElementById('mensagem').innerHTML = "Preencha o campo Nome do Acompanhante corretamente!";
-					$("#myModal").modal({show: true});
-					document.cadastroCliente.txtNome1.focus();
-					return false;
-				}
-				if(document.cadastroCliente.txtDataNascimento1.value.length < 10){
-					
-					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!";
-					$("#myModal").modal({show: true});
-					document.cadastroCliente.txtDataNascimento1.focus();
-					return false;
-				}
-			}
+			}			
 			if(quantidade > 2){		
 								
 				if(document.cadastroCliente.txtNome2.value.length < 15){
@@ -227,7 +146,7 @@
 					document.cadastroCliente.txtNome2.focus();
 					return false;
 				}
-				if(document.cadastroCliente.txtDataNascimento2.value.length < 10){
+				if(document.cadastroCliente.txtDataNascimento2.value.length < 10 || validaDat(document.cadastroCliente.txtDataNascimento2, document.cadastroCliente.txtDataNascimento2.value)){
 					
 					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!";
 					$("#myModal").modal({show: true});
@@ -244,7 +163,7 @@
 					document.cadastroCliente.txtNome3.focus();
 					return false;
 				}
-				if(document.cadastroCliente.txtDataNascimento3.value.length < 10){
+				if(document.cadastroCliente.txtDataNascimento3.value.length < 10 || validaDat(document.cadastroCliente.txtDataNascimento3, document.cadastroCliente.txtDataNascimento3.value)){
 					
 					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!";
 					$("#myModal").modal({show: true});
@@ -260,7 +179,7 @@
 					document.cadastroCliente.txtNome4.focus();
 					return false;
 				}
-				if(document.cadastroCliente.txtDataNascimento4.value.length < 10){
+				if(document.cadastroCliente.txtDataNascimento4.value.length < 10 || validaDat(document.cadastroCliente.txtDataNascimento4, document.cadastroCliente.txtDataNascimento4.value)){
 					
 					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!";
 					$("#myModal").modal({show: true});
@@ -276,7 +195,7 @@
 					document.cadastroCliente.txtNome5.focus();
 					return false;
 				}
-				if(document.cadastroCliente.txtDataNascimento5.value.length < 10){
+				if(document.cadastroCliente.txtDataNascimento5.value.length < 10 || validaDat(document.cadastroCliente.txtDataNascimento5, document.cadastroCliente.txtDataNascimento5.value)){
 					
 					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!";
 					$("#myModal").modal({show: true});
@@ -292,7 +211,7 @@
 					document.cadastroCliente.txtNome6.focus();
 					return false;
 				}
-				if(document.cadastroCliente.txtDataNascimento6.value.length < 10){
+				if(document.cadastroCliente.txtDataNascimento6.value.length < 10 || validaDat(document.cadastroCliente.txtDataNascimento6, document.cadastroCliente.txtDataNascimento6.value)){
 					
 					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!";
 					$("#myModal").modal({show: true});
@@ -308,7 +227,7 @@
 					document.cadastroCliente.txtNome7.focus();
 					return false;
 				}
-				if(document.cadastroCliente.txtDataNascimento7.value.length < 10){
+				if(document.cadastroCliente.txtDataNascimento7.value.length < 10 || validaDat(document.cadastroCliente.txtDataNascimento7, document.cadastroCliente.txtDataNascimento7.value)){
 					
 					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!";
 					$("#myModal").modal({show: true});
@@ -324,7 +243,7 @@
 					document.cadastroCliente.txtNome8.focus();
 					return false;
 				}
-				if(document.cadastroCliente.txtDataNascimento8.value.length < 10){
+				if(document.cadastroCliente.txtDataNascimento8.value.length < 10 || validaDat(document.cadastroCliente.txtDataNascimento8, document.cadastroCliente.txtDataNascimento8.value)){
 					
 					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!"; 
 					$("#myModal").modal({show: true});
@@ -340,7 +259,7 @@
 					document.cadastroCliente.txtNome9.focus();
 					return false;
 				}
-				if(document.cadastroCliente.txtDataNascimento9.value.length < 10){
+				if(document.cadastroCliente.txtDataNascimento9.value.length < 10 || validaDat(document.cadastroCliente.txtDataNascimento9, document.cadastroCliente.txtDataNascimento9.value)){
 					
 					document.getElementById('mensagem').innerHTML = "Preencha o campo Data de Nascimento do Acompanhante corretamente!"; 
 					$("#myModal").modal({show: true});
@@ -350,6 +269,35 @@
 			}
 			return true;
 		}		  
+	</script>
+	<script>
+		function validaDat(campo,valor) {
+			var date=valor;
+			var ardt=new Array;
+			var ExpReg=new RegExp("(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}");
+			ardt=date.split("/");
+			erro=false;
+			if ( date.search(ExpReg)==-1){
+				erro = true;
+				}
+			else if (((ardt[1]==4)||(ardt[1]==6)||(ardt[1]==9)||(ardt[1]==11))&&(ardt[0]>30))
+				erro = true;
+			else if ( ardt[1]==2) {
+				if ((ardt[0]>28)&&((ardt[2]%4)!=0))
+					erro = true;
+				if ((ardt[0]>29)&&((ardt[2]%4)==0))
+					erro = true;
+			}
+			if (erro) {		
+				campo.focus();
+				campo.value = "";
+				$(campo).addClass("is-invalid");
+				return true;
+			}
+			$(campo).removeClass("is-invalid");
+			$(campo).addClass("is-valid");
+			return false;
+		}
 	</script>
 	<script>
 	$('#myModal').on('shown.bs.modal', function() {
