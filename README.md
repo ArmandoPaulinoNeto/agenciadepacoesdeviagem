@@ -2,7 +2,7 @@
 
 Este projeto foi desenvolvido para a disciplina de Programação III do 4º periodo de Sistemas de Informação.
 
-Nesta feita foi desenvolvido a primeira versão do site cuja finalidade era que o mesmo executasse um CRUD. Atualmente o site está na versão 2.0. Porqunto o software foi refatorado na disciplina de Programação IV onde houve melhorias que tornou a codifição mais limpa e também houve uma reestruturação das páginas do site, sendo que principal foi a criação de uma página para o pagamento com cartão.
+Nesta feita, foi desenvolvido a primeira versão do site cuja finalidade era que o mesmo fosse capaz de ralizar um CRUD (Create - Read - Update - Delete). Atualmente o site está na versão 2.0. Porqunto o software foi refatorado na disciplina de Programação IV, onde houve melhorias que tornou a codifição mais limpa e também houve uma reestruturação das páginas do site, sendo que principal foi a criação de uma página para o pagamento com cartão.
 
 A primeira versão foi desenvolvida por mim, Armando Paulino, já a segunda versão contou com a colaboração de Severino Carlos, José Victor e Thomás Félix.
 
