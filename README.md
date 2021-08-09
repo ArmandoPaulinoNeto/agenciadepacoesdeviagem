@@ -6,6 +6,16 @@ Nesta feita, foi desenvolvido a primeira versão do site cuja finalidade era que
 
 A primeira versão foi desenvolvida por mim, Armando Paulino, já a segunda versão contou com a colaboração de Severino Carlos, José Victor e Thomás Félix.
 
+##Configuração do Projeto.
+
+- Projeto Maven
+- Java 8
+- hibernate-core 4.3.11.Final
+- Banco relacional MySql
+- jstl-api 1.2-rev-1
+- junit 4.12
+- html5, css 3 e Bootstrap
+- Servlet
 
 ## Link da apresentção do site funcionando
   https://www.loom.com/share/959dc93d90ac4464b1a1a9762ade1067
